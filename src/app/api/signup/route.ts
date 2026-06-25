@@ -6,36 +6,42 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    const user = await (prisma as any).user.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: {
         email: body.email,
       },
     });
 
-    if (!user) {
+    if (existingUser) {
       return NextResponse.json(
-        { message: "User not found" },
-        { status: 404 }
-      );
-    }
-
-    const checkPassword = await bcrypt.compare(
-      body.password,
-      user.password
-    );
-
-    if (!checkPassword) {
-      return NextResponse.json(
-        { message: "Invalid password" },
+        { message: "Email already in use" },
         { status: 400 }
       );
     }
 
-    return NextResponse.json({
-      message: "Login successful",
-      user,
+    const hashedPassword = await bcrypt.hash(body.password, 10);
+
+    const user = await prisma.user.create({
+      data: {
+        name: body.name,
+        email: body.email,
+        password: hashedPassword,
+        role: body.role,
+      },
     });
 
+    return NextResponse.json(
+      {
+        message: "User created successfully",
+        user: {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          role: user.role,
+        },
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
 

@@ -27,6 +27,7 @@ export async function POST(req: Request) {
         description: body.description,
         price: Number(body.price),
         location: body.location,
+        image: body.image,   // ← ADD THIS
       },
     });
 
@@ -34,6 +35,7 @@ export async function POST(req: Request) {
       message: "Property created successfully",
       property,
     });
+
   } catch (error) {
     console.log("ERROR:", error);
 
