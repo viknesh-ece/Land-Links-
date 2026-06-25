@@ -297,8 +297,10 @@ function ListingsContent() {
                 </p>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {filteredProperties.map((property: any) => (
-                  <PropertyCard key={property.id} property={property} />
+                {filteredProperties.map((property: any, index: number) => (
+                  <div key={property.id} className="animate-slide-up opacity-0" style={{ animationDelay: `${index * 80}ms`, animationFillMode: "forwards" }}>
+                    <PropertyCard property={property} />
+                  </div>
                 ))}
               </div>
             </div>

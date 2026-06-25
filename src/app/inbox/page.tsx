@@ -287,7 +287,7 @@ export default function InboxPage() {
                 }
                 const isMe = m.sender === "me";
                 return (
-                  <div key={idx} className={`flex ${isMe ? "justify-end" : "justify-start"}`}>
+                  <div key={idx} className={`flex ${isMe ? "justify-end" : "justify-start"} animate-slide-up opacity-0`} style={{ animationDuration: "250ms", animationFillMode: "forwards" }}>
                     <div className={`max-w-md rounded-2xl p-4 ${
                       isMe 
                         ? "bg-indigo-650 text-white rounded-tr-none shadow-lg shadow-indigo-900/15" 

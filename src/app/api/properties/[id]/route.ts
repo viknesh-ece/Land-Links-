@@ -35,16 +35,15 @@ return NextResponse.json(
 // UPDATE PROPERTY
 export async function PUT(
 req: Request,
-{ params }: { params: Promise<{ id: string }> }
+{ params }: { params: { id: string } }
 ): Promise<Response> {
 try {
-const { id } = await params;
 const body = await req.json();
 
 
 const property = await prisma.property.update({
   where: {
-    id: Number(id),
+    id: Number(params.id),
   },
   data: {
     title: body.title,

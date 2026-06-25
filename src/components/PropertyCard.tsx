@@ -162,8 +162,8 @@ export default function PropertyCard({ property }: PropertyProps) {
 
       {/* Modal 2: Contact Owner */}
       {showContact && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-in zoom-in-95 duration-150 relative">
+        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-slate-950 border border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-scale-in relative">
             <button 
               onClick={() => setShowContact(false)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-300 transition-colors cursor-pointer"
@@ -215,8 +215,8 @@ export default function PropertyCard({ property }: PropertyProps) {
 
       {/* Modal 3: Delete Confirmation */}
       {showDeleteConfirm && (
-        <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-slate-950 border border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-in zoom-in-95 duration-150 text-center">
+        <div className="fixed inset-0 bg-slate-955/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="bg-slate-955 border border-slate-800 rounded-3xl max-w-sm w-full p-6 shadow-2xl animate-scale-in text-center">
             <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-rose-950/20 text-rose-450 mb-3 border border-rose-900/50">
               <Trash2 className="h-5 w-5" />
             </div>
@@ -282,8 +282,8 @@ function DetailsModal({ property, imageUrl, formattedPrice, onClose, onOpenConta
   };
 
   return (
-    <div className="fixed inset-0 bg-slate-955/85 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-      <div className="bg-slate-950 border border-slate-800 rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl animate-in zoom-in-95 duration-150 flex flex-col md:flex-row">
+    <div className="fixed inset-0 bg-slate-955/85 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+      <div className="bg-slate-950 border border-slate-800 rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl animate-scale-in flex flex-col md:flex-row">
         
         {/* Left Column: GIS map & Satellite view */}
         <div className="w-full md:w-1/2 p-6 border-b md:border-b-0 md:border-r border-slate-900 flex flex-col gap-4">

@@ -144,22 +144,22 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
             {/* Tagline Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-950/40 border border-indigo-900/60 text-indigo-450 text-xs font-bold uppercase tracking-wider mb-6">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-indigo-950/40 border border-indigo-900/60 text-indigo-455 text-xs font-bold uppercase tracking-wider mb-6 animate-fade-in">
               <Sparkles className="h-3.5 w-3.5 text-indigo-400 animate-spin" style={{ animationDuration: "3s" }} />
               <span>India's Premium Institutional Land Network</span>
             </div>
 
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-[1.12] mb-6">
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-[1.12] mb-6 animate-slide-up opacity-0">
               The Smarter Way to Transact <br className="hidden sm:inline" />
               <span className="bg-gradient-to-r from-indigo-400 via-indigo-500 to-sky-400 bg-clip-text text-transparent">Land, Capital, & Vision</span>
             </h1>
 
-            <p className="text-lg sm:text-xl text-slate-450 font-medium max-w-3xl mx-auto mb-10 leading-relaxed">
+            <p className="text-lg sm:text-xl text-slate-400 font-medium max-w-3xl mx-auto mb-10 leading-relaxed animate-slide-up opacity-0 delay-100">
               Connect direct landowners, capital investors, and builders in one transparent digital marketplace. Powered by institutional AI valuations and 100% legal title diligence.
             </p>
 
             {/* Premium Search Box Mockup */}
-            <div className="bg-[#090d16]/80 backdrop-blur-xl border border-slate-800 p-3 rounded-2xl shadow-xl max-w-3xl mx-auto mb-12 flex flex-col md:flex-row gap-2.5">
+            <div className="bg-[#090d16]/80 backdrop-blur-xl border border-slate-800 p-3 rounded-2xl shadow-xl max-w-3xl mx-auto mb-12 flex flex-col md:flex-row gap-2.5 animate-scale-in opacity-0 delay-200">
               <div className="flex-1 relative flex items-center">
                 <Search className="h-4.5 w-4.5 text-slate-500 absolute left-3" />
                 <input 
@@ -191,7 +191,7 @@ export default function Home() {
             </div>
 
             {/* Quick Actions */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up opacity-0 delay-300">
               <Link
                 href="/listings"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl text-base font-bold bg-indigo-600 hover:bg-indigo-500 text-white shadow-xl shadow-indigo-900/20 hover:shadow-indigo-900/35 hover:scale-[1.01] transition-all duration-200"
@@ -214,11 +214,11 @@ export default function Home() {
       {/* Stats Section */}
       <section className="bg-black relative -mt-8 pb-16 z-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="bg-[#090d16]/80 rounded-3xl border border-slate-800/80 p-8 md:p-12 shadow-2xl backdrop-blur-md">
+          <div className="bg-[#090d16]/80 rounded-3xl border border-slate-800/80 p-8 md:p-12 shadow-2xl backdrop-blur-md animate-scale-in opacity-0 delay-400">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 divide-y md:divide-y-0 lg:divide-x divide-slate-800">
               {stats.map((stat, idx) => (
-                <div key={idx} className="pt-6 first:pt-0 md:pt-0 lg:px-6 text-center md:text-left">
-                  <p className="text-4xl font-black text-indigo-400 tracking-tight">{stat.value}</p>
+                <div key={idx} className="pt-6 first:pt-0 md:pt-0 lg:px-6 text-center md:text-left transition-all duration-300 hover:scale-[1.03] cursor-default group">
+                  <p className="text-4xl font-black text-indigo-400 tracking-tight group-hover:text-indigo-305 transition-colors">{stat.value}</p>
                   <p className="text-sm font-bold text-slate-200 mt-2">{stat.label}</p>
                   <p className="text-xs text-slate-400 font-medium mt-1 leading-normal">{stat.desc}</p>
                 </div>

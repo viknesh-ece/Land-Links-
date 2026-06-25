@@ -157,7 +157,7 @@ export default function CreatePropertyPage() {
 
               {/* STEP 1: Basic Info */}
               {step === 1 && (
-                <div className="space-y-4 animate-in fade-in duration-200">
+                <div className="space-y-4 animate-scale-in">
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Property Title</label>
                     <input
@@ -222,7 +222,7 @@ export default function CreatePropertyPage() {
 
               {/* STEP 2: Land Attributes */}
               {step === 2 && (
-                <div className="space-y-5 animate-in fade-in duration-200">
+                <div className="space-y-5 animate-scale-in">
                   <div>
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2.5">Zoning Permitted Class</label>
                     <div className="grid grid-cols-2 gap-3">
@@ -281,7 +281,7 @@ export default function CreatePropertyPage() {
 
               {/* STEP 3: GIS Boundary Tracer */}
               {step === 3 && (
-                <div className="space-y-4 animate-in fade-in duration-200">
+                <div className="space-y-4 animate-scale-in">
                   <div className="flex justify-between items-center">
                     <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400">
                       Interactive Boundary GIS Polygon Drawer
@@ -410,7 +410,7 @@ export default function CreatePropertyPage() {
 
               {/* STEP 4: Legal Deed Scan & Media */}
               {step === 4 && (
-                <div className="space-y-4 animate-in fade-in duration-200">
+                <div className="space-y-4 animate-scale-in">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Property Image URL</label>
