@@ -30,9 +30,42 @@ export default function PropertyCard({
         Location: {property.location}
       </p>
 
-      <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded">
-        View Property
-      </button>
+      <div className="flex gap-3 mt-4 flex-wrap">
+
+        <button className="bg-blue-600 text-white px-4 py-2 rounded">
+          View Property
+        </button>
+
+        <button
+          onClick={() =>
+            alert("Owner Contact: +91 9876543210")
+          }
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Contact Owner
+        </button>
+
+        <button
+          onClick={() =>
+            alert("Property Saved Successfully ❤️")
+          }
+          className="bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Save ❤️
+        </button>
+        <button
+  onClick={() =>
+    window.open(
+      `https://www.google.com/maps/search/${property.location}`,
+      "_blank"
+    )
+  }
+  className="bg-yellow-500 text-white px-4 py-2 rounded"
+>
+  View Map 🗺️
+</button>
+
+      </div>
 
     </div>
   );
