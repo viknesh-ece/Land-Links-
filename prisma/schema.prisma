@@ -13,16 +13,47 @@ model User {
   email     String   @unique
   password  String
   role      String
+  verified  Boolean  @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Property {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  title       String
-  description String
-  price       Float
-  location    String
-  image       String   @default("placeholder.jpg")
-  createdAt   DateTime @default(now())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  title          String
+  description    String
+  price          Float
+  location       String
+  image          String   @default("placeholder.jpg")
+  soilReport     String?
+  landDeed       String?
+  pattaDocument  String?
+  gisCoordinates String?
+  createdAt      DateTime @default(now())
+}
+
+model InboxThread {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  role          String
+  propertyName  String
+  propertyPrice Float
+  location      String
+  lastMessage   String
+  unread        Boolean  @default(false)
+  status        String   @default("pending")
+  myOffer       Float    @default(0)
+  counterOffer  Float?
+  userId        String   @db.ObjectId
+  createdAt     DateTime @default(now())
+}
+
+model Message {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  threadId  String   @db.ObjectId
+  sender    String
+  text      String
+  time      String
+  system    Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

@@ -19,7 +19,11 @@ export async function POST(req) {
                 description: body.description,
                 price: Number(body.price),
                 location: body.location,
-                image: body.image, // ← ADD THIS
+                image: body.image,
+                soilReport: body.soilReport,
+                landDeed: body.landDeed,
+                pattaDocument: body.pattaDocument,
+                gisCoordinates: body.gisCoordinates,
             },
         });
         return NextResponse.json({

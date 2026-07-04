@@ -16,47 +16,63 @@ export default function Animated3DBackground() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // 1. Initialize floating glowing blobs
+    // 1. Initialize floating glowing blobs (increased opacity and speed for rich visible colors)
     const blobs = [
       {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        radius: Math.min(width, height) * 0.35,
-        color: "rgba(124, 58, 237, 0.08)", // Violet glow (softer on white)
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        radius: Math.min(width, height) * 0.45,
+        color: "rgba(139, 92, 246, 0.28)", // Violet
       },
       {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
+        vx: (Math.random() - 0.5) * 1.5,
+        vy: (Math.random() - 0.5) * 1.5,
+        radius: Math.min(width, height) * 0.48,
+        color: "rgba(99, 102, 241, 0.28)", // Indigo
+      },
+      {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
+        radius: Math.min(width, height) * 0.38,
+        color: "rgba(6, 182, 212, 0.25)", // Cyan
+      },
+      {
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 1.2,
+        vy: (Math.random() - 0.5) * 1.2,
         radius: Math.min(width, height) * 0.4,
-        color: "rgba(79, 70, 229, 0.08)", // Indigo glow (softer on white)
+        color: "rgba(244, 63, 94, 0.22)", // Rose Pink
       },
       {
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.4,
-        vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.min(width, height) * 0.3,
-        color: "rgba(6, 182, 212, 0.06)", // Cyan/Teal glow (softer on white)
-      },
+        vx: (Math.random() - 0.5) * 1.0,
+        vy: (Math.random() - 0.5) * 1.0,
+        radius: Math.min(width, height) * 0.35,
+        color: "rgba(245, 158, 11, 0.20)", // Soft Amber
+      }
     ];
 
     // 2. Initialize bokeh bubbles
     const bubbles = [];
-    const numBubbles = 30;
+    const numBubbles = 35;
     for (let i = 0; i < numBubbles; i++) {
       bubbles.push({
         x: Math.random() * width,
         y: Math.random() * height + height * 0.2,
-        radius: Math.random() * 60 + 15,
-        speedY: Math.random() * 0.25 + 0.08,
-        speedX: (Math.random() - 0.5) * 0.1,
-        opacity: Math.random() * 0.05 + 0.02, // slightly higher opacity for white background contrast
-        // Alternate colors between teal and purple/blue
-        color: i % 2 === 0 ? "6, 182, 212" : "124, 58, 237", 
+        radius: Math.random() * 70 + 15,
+        speedY: Math.random() * 0.3 + 0.1,
+        speedX: (Math.random() - 0.5) * 0.12,
+        opacity: Math.random() * 0.08 + 0.03, // slightly higher opacity for contrast
+        // Cycle colors: teal, purple, and rose pink
+        color: i % 3 === 0 ? "6, 182, 212" : i % 3 === 1 ? "244, 63, 94" : "124, 58, 237", 
       });
     }
 
@@ -80,9 +96,11 @@ export default function Animated3DBackground() {
       height = canvas.height = window.innerHeight;
       
       // Update blob sizes based on new dimensions
-      blobs[0].radius = Math.min(width, height) * 0.35;
-      blobs[1].radius = Math.min(width, height) * 0.4;
-      blobs[2].radius = Math.min(width, height) * 0.3;
+      blobs[0].radius = Math.min(width, height) * 0.45;
+      blobs[1].radius = Math.min(width, height) * 0.48;
+      blobs[2].radius = Math.min(width, height) * 0.38;
+      blobs[3].radius = Math.min(width, height) * 0.4;
+      blobs[4].radius = Math.min(width, height) * 0.35;
     };
     window.addEventListener("resize", handleResize);
 
