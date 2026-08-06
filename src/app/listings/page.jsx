@@ -3,9 +3,12 @@ import Navbar from "@/components/Navbar";
 import PropertyCard from "@/components/PropertyCard";
 import Link from "next/link";
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { getLoggedInUser } from "@/lib/auth";
 import { Search, Plus, MapPin, SlidersHorizontal, RefreshCw, Layers, CheckCircle, Maximize2 } from "lucide-react";
+
 function ListingsContent() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const initialSearch = searchParams.get("search") || "";
     const [properties, setProperties] = useState([]);
@@ -17,15 +20,27 @@ function ListingsContent() {
     const [locationFilter, setLocationFilter] = useState("all");
     const [zoningFilter, setZoningFilter] = useState("all");
     const [onlyVerified, setOnlyVerified] = useState(false);
+
+    useEffect(() => {
+        const user = getLoggedInUser();
+        if (!user) {
+            router.push("/signup");
+        }
+    }, [router]);
     const fetchProperties = async () => {
         setLoading(true);
         try {
             const res = await fetch("/api/properties");
             const data = await res.json();
-            setProperties(data);
+            if (Array.isArray(data)) {
+                setProperties(data);
+            } else {
+                setProperties([]);
+            }
         }
         catch (error) {
             console.error("Failed to fetch properties:", error);
+            setProperties([]);
         }
         finally {
             setLoading(false);

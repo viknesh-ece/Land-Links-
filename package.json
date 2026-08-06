@@ -2,6 +2,7 @@
   "name": "landlinkx",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
@@ -13,6 +14,7 @@
     "@prisma/client": "^6.19.3",
     "bcrypt": "^6.0.0",
     "lucide-react": "^1.21.0",
+    "mongodb": "^7.5.0",
     "next": "15.5.19",
     "next-auth": "^4.24.14",
     "prisma": "^6.19.3",
