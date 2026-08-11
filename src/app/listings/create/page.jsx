@@ -2,12 +2,14 @@
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 import { Building, MapPin, Sparkles, ArrowRight, ArrowLeft, CheckCircle2, UploadCloud, HelpCircle, Droplets, Compass, ShieldCheck, Lock, Search, RefreshCw, FileCheck, AlertTriangle } from "lucide-react";
 import GovDocVerifierModal from "@/components/GovDocVerifierModal";
 import AIFraudDocumentShield from "@/components/AIFraudDocumentShield";
 
 export default function CreatePropertyPage() {
     const router = useRouter();
+    const { lang, t } = useLanguage();
     const [verifyingDoc, setVerifyingDoc] = useState(null);
     
     // Wizard steps:
@@ -385,11 +387,15 @@ export default function CreatePropertyPage() {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span className="text-xs font-black uppercase tracking-widest text-cyan-400">Anti-Scammer Guarded Gateway</span>
-                    <h1 className="text-2xl font-black text-white mt-0.5">Register & List Land Parcel</h1>
+                    <span className="text-xs font-black uppercase tracking-widest text-cyan-400">
+                      {lang === "ta" ? "மோசடி தடுப்பு நுழைவாயில்" : "Anti-Scammer Guarded Gateway"}
+                    </span>
+                    <h1 className="text-2xl font-black text-white mt-0.5">
+                      {t.createProperty?.pageTitle || "Register & List Land Parcel"}
+                    </h1>
                   </div>
                   <span className="text-xs font-bold text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
-                    Step {step} of 5
+                    {lang === "ta" ? `படி ${step} / 5` : `Step ${step} of 5`}
                   </span>
                 </div>
 
@@ -421,10 +427,10 @@ export default function CreatePropertyPage() {
                   <div className="p-4 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 space-y-1">
                     <div className="flex items-center gap-2 text-cyan-300 font-black text-xs uppercase tracking-wider">
                       <ShieldCheck className="h-4 w-4 text-cyan-400" />
-                      Mandatory TamilNilam Anti-Scammer Title Verification
+                      {t.createProperty?.step1Title || "Mandatory TamilNilam Anti-Scammer Title Verification"}
                     </div>
                     <p className="text-xs text-slate-300 font-medium leading-relaxed">
-                      To prevent scammers from listing fraudulent or disputed properties, you must verify that your land is registered in the official TamilNilam Revenue database before registration is unlocked.
+                      {t.createProperty?.step1Desc || "To prevent scammers from listing fraudulent or disputed properties, you must verify that your land is registered in the official TamilNilam Revenue database before registration is unlocked."}
                     </p>
                   </div>
 

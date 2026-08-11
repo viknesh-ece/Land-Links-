@@ -2,10 +2,13 @@
 import Navbar from "@/components/Navbar";
 import { useState } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 import { Sparkles, MapPin, Building, Compass, Droplets, FileDown, TrendingUp, Scale, ShieldCheck, Activity } from "lucide-react";
+
 export default function AIPricePage() {
+    const { lang, t } = useLanguage();
     const [acres, setAcres] = useState("");
-    const [region, setRegion] = useState("Bangalore East");
+    const [region, setRegion] = useState("Coimbatore Highway Corridor");
     const [zoning, setZoning] = useState("Residential");
     const [roadWidth, setRoadWidth] = useState("2-Lane");
     const [hasWater, setHasWater] = useState(false);
@@ -526,13 +529,13 @@ export default function AIPricePage() {
         <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-4">
             <Sparkles className="h-3.5 w-3.5 text-cyan-400 animate-pulse"/>
-            <span>Advanced Valuation Algorithm v2.5</span>
+            <span>{lang === "ta" ? "மேம்பட்ட AI நில மதிப்பீட்டு அல்காரிதம் v2.5" : "Advanced Valuation Algorithm v2.5"}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-            AI Land Price Predictor
+            {t.valuation?.pageTitle || "AI Land Price Predictor"}
           </h1>
           <p className="text-slate-400 font-semibold text-xs mt-2 leading-relaxed">
-            Estimate accurate market pricing for your land parcel. Our models analyze land registry indices, highway proximity modifiers, zoning codes, and resource access.
+            {t.valuation?.pageSubtitle || "Estimate accurate market pricing for your land parcel. Our models analyze land registry indices, highway proximity modifiers, zoning codes, and resource access."}
           </p>
         </div>
 
@@ -540,22 +543,28 @@ export default function AIPricePage() {
               {/* Inputs Section Stack */}
           <div className="lg:col-span-5 space-y-8 animate-fade-in">
             <div className="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-5">
-              <h3 className="text-lg font-bold text-white border-b border-slate-800 pb-3">Parcel Parameters</h3>
+              <h3 className="text-lg font-bold text-white border-b border-slate-800 pb-3">
+                {t.valuation?.parametersHeading || "Parcel Parameters"}
+              </h3>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Acreage Area</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  {t.valuation?.acresLabel || "Acreage Area"}
+                </label>
                 <input type="number" step="0.01" placeholder="Enter Acres (e.g. 3.25)" value={acres} className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm font-semibold text-white placeholder:text-slate-500" onChange={(e) => setAcres(e.target.value)}/>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">Region / Corridor</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                  {t.valuation?.districtLabel || "Region / Corridor"}
+                </label>
                 <div className="relative">
                   <MapPin className="h-4.5 w-4.5 text-cyan-400 absolute left-3 top-3.5"/>
                   <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:outline-none focus:ring-1 focus:ring-cyan-500 text-sm font-bold text-white cursor-pointer appearance-none">
-                    <option value="Bangalore East" className="bg-slate-900 text-white">Bangalore East Corridor</option>
-                    <option value="Hyderabad West" className="bg-slate-900 text-white">Hyderabad West Parkways</option>
-                    <option value="Mumbai Outer" className="bg-slate-900 text-white">Mumbai Outer Expansion</option>
-                    <option value="Chennai Highway Corridor" className="bg-slate-900 text-white">Chennai Highway Corridor</option>
+                    <option value="Coimbatore Highway Corridor" className="bg-slate-900 text-white">Coimbatore Highway Corridor (கோயம்புத்தூர்)</option>
+                    <option value="Chennai Highway Corridor" className="bg-slate-900 text-white">Chennai OMR / Tambaram Corridor (சென்னை)</option>
+                    <option value="Madurai Outer Expansion" className="bg-slate-900 text-white">Madurai Outer Expressway (மதுரை)</option>
+                    <option value="Salem Industrial Parkway" className="bg-slate-900 text-white">Salem Industrial Parkway (சேலம்)</option>
                   </select>
                 </div>
               </div>

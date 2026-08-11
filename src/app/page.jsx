@@ -4,12 +4,14 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { getLoggedInUser } from "@/lib/auth";
+import { useLanguage } from "@/context/LanguageContext";
 import { ArrowRight, MapPin, TrendingUp, Building, ShieldCheck, Users, CheckCircle2, Sparkles, Search, ChevronRight, Star, Layers, ArrowUpRight } from "lucide-react";
 import PropertyCard from "@/components/PropertyCard";
 import ThreeDTilt from "@/components/ThreeDTilt";
 
 export default function Home() {
     const router = useRouter();
+    const { lang, t } = useLanguage();
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
     const [quickAcres, setQuickAcres] = useState("");
@@ -68,35 +70,41 @@ export default function Home() {
     };
 
     const stats = [
-        { value: "₹480 Cr+", label: "Capital Invested", desc: "Across primary development corridors" },
-        { value: "2,850+", label: "Acres Listed", desc: "Vetted agricultural, commercial & IT parks" },
-        { value: "1,400+", label: "Verified Owners", desc: "100% direct landowners with clear titles" },
-        { value: "520+", label: "Registered Builders", desc: "Top A-grade developers active on platform" },
+        { value: t.hero?.stat1Value || "₹480 Cr+", label: t.hero?.stat1Label || "Capital Invested", desc: t.hero?.stat1Desc || "Across primary development corridors" },
+        { value: t.hero?.stat2Value || "2,850+", label: t.hero?.stat2Label || "Acres Listed", desc: t.hero?.stat2Desc || "Vetted agricultural, commercial & IT parks" },
+        { value: t.hero?.stat3Value || "1,400+", label: t.hero?.stat3Label || "Verified Owners", desc: t.hero?.stat3Desc || "100% direct landowners with clear titles" },
+        { value: t.hero?.stat4Value || "520+", label: t.hero?.stat4Label || "Registered Builders", desc: t.hero?.stat4Desc || "Top A-grade developers active on platform" },
     ];
 
     const roles = [
         {
-            title: "For Landowners",
-            description: "Unlock the true value of your asset. Create an account to list properties, upload photos, surveys, boundary maps, documents, utility connections, zoning information, pricing, and manage inquiries directly.",
+            title: t.roles?.titleForLandowners || "For Landowners",
+            description: t.roles?.descForLandowners || "Unlock the true value of your asset. List properties with zero broker commission, upload surveys, FMB maps, and receive binding offers directly from principal builders.",
             icon: MapPin,
             color: "bg-cyan-500/20 border-cyan-500/40 text-cyan-300",
-            features: ["Upload Surveys & Boundary Maps", "Manage Direct Buyer Inquiries", "List Zoning & Utility Connections"],
+            features: lang === "ta" 
+              ? ["பட்டா & FMB எல்லை வரைபடங்கள்", "நேரடி பில்டர் ஒப்பந்தங்கள்", "0% தரகு கமிஷன்"]
+              : ["Upload Surveys & Boundary Maps", "Manage Direct Buyer Inquiries", "List Zoning & Utility Connections"],
             link: "/signup?role=Landowner"
         },
         {
-            title: "For Investors",
-            description: "Aquire high-growth land deals. Search properties, save searches and favorite listings, view detailed property pages, contact landowners, and purchase professional AI development reports.",
+            title: t.roles?.titleForInvestors || "For Investors",
+            description: t.roles?.descForInvestors || "Acquire high-growth land deals. Search verified parcels, inspect AI valuation indices, review title diligence, and purchase pre-vetted land directly.",
             icon: TrendingUp,
             color: "bg-emerald-500/20 border-emerald-500/40 text-emerald-300",
-            features: ["Save Searches & Properties", "Instant New Listing Alerts", "Purchase AI Development Reports"],
+            features: lang === "ta"
+              ? ["100% சரிபார்க்கப்பட்ட பட்டா", "உடனடி புதிய நில அறிவிப்புகள்", "AI நில மதிப்பீட்டு அறிக்கைகள்"]
+              : ["Save Searches & Properties", "Instant New Listing Alerts", "Purchase AI Development Reports"],
             link: "/signup?role=Investor"
         },
         {
-            title: "For Builders",
-            description: "Find your next flagship project location. Create your company profile with logos, insurance records, active licensing, service areas, specialty fields, portfolio photos, and communicate securely.",
+            title: t.roles?.titleForBuilders || "For Builders & Developers",
+            description: t.roles?.descForBuilders || "Find your next flagship development plot. Access CAD survey boundaries, zoning feasibility reports, utility infrastructure scores, and negotiate directly with verified landowners.",
             icon: Building,
             color: "bg-purple-500/20 border-purple-500/40 text-purple-300",
-            features: ["Professional Company Profile", "Portfolio & Licensing Uploads", "Secure Internal Messaging Only"],
+            features: lang === "ta"
+              ? ["நிறுவன சுயவிவரம்", "CAD வரைபடங்கள் & அனுமதிகள்", "பாதுகாப்பான நேரடி அரட்டை"]
+              : ["Professional Company Profile", "Portfolio & Licensing Uploads", "Secure Internal Messaging Only"],
             link: "/signup?role=Builder"
         }
     ];
@@ -104,32 +112,36 @@ export default function Home() {
     const features = [
         {
             icon: Sparkles,
-            title: "AI-Powered Valuation Engine",
-            description: "Our machine learning models digest recent state land registries, proximity to highways, infrastructure expansions, and soil profiles to deliver instant accurate pricing estimates."
+            title: t.homeSections?.feature1Title || "5-Layer Anti-Fraud Forensics",
+            description: t.homeSections?.feature1Desc || "Automated OCR extraction, EXIF binary tamper analysis, and TamilNilam revenue registry cross-matching."
         },
         {
             icon: ShieldCheck,
-            title: "Verified Clean Ownership Deeds",
-            description: "We enforce a rigid multi-tier legal audit verifying title deeds, survey boundaries, state encumbrance records, and litigation clearance logs before any listing goes live."
+            title: t.homeSections?.feature2Title || "Live GIS Satellite & CAD Maps",
+            description: t.homeSections?.feature2Desc || "High-resolution Google Maps satellite telemetry with vector FMB survey polygon boundaries."
         },
         {
             icon: Users,
-            title: "Direct Peer-to-Peer Transactions",
-            description: "Eliminate middleman fees and high commissions. Connect directly with principal builders, legal representatives, and capital groups on our secure communication hub."
+            title: t.homeSections?.feature3Title || "Smart Escrow & P2P Negotiation",
+            description: t.homeSections?.feature3Desc || "Direct encrypted buyer-seller deal room with milestone deposit escrow and digital signature pads."
         }
     ];
 
     const testimonials = [
         {
-            quote: "LandLinkX cut down our site acquisition cycle from 9 months to just 25 days. Finding vetted titles with verified landowner contacts directly saved us crores.",
+            quote: lang === "ta"
+              ? "லேண்ட்-லிங்க்ஸ் மூலம் எங்கள் நிலம் கையகப்படுத்தும் காலம் 9 மாதங்களில் இருந்து வெறும் 25 நாட்களாக குறைந்தது. சரிபார்க்கப்பட்ட பட்டா மற்றும் நேரடி உரிமையாளர் தொடர்புகள் எங்களுக்கு பல கோடிகளை மிச்சப்படுத்தின."
+              : "LandLinkX cut down our site acquisition cycle from 9 months to just 25 days. Finding vetted titles with verified landowner contacts directly saved us crores.",
             author: "Aditya Hegde",
-            role: "VP Land Acquisition, Sterling Infrastructure",
+            role: lang === "ta" ? "துணைத் தலைவர், ஸ்டெர்லிங் இன்ஃப்ராஸ்ட்ரக்சர்" : "VP Land Acquisition, Sterling Infrastructure",
             rating: 5
         },
         {
-            quote: "As a private landowner, I was exhausted by local brokers inflating quotes and demanding 2% commissions. Listed my 4 acres here, got an AI valuation, and sold to an A-grade developer directly.",
+            quote: lang === "ta"
+              ? "தனிப்பட்ட நில உரிமையாளராக, உள்ளூர் தரகர்கள் 2% கமிஷன் கேட்பதால் சோர்வடைந்தேன். எனது 4 ஏக்கரை இங்கு பட்டியலிட்டு, AI மதிப்பீட்டைப் பெற்று, நேரடியாக ஏ-கிரேடு டெவலப்பருக்கு விற்றேன்."
+              : "As a private landowner, I was exhausted by local brokers inflating quotes and demanding 2% commissions. Listed my 4 acres here, got an AI valuation, and sold to an A-grade developer directly.",
             author: "Radha Krishnan",
-            role: "Landowner, Bangalore East Corridor",
+            role: lang === "ta" ? "நில உரிமையாளர், பொள்ளாச்சி" : "Landowner, Pollachi Corridor",
             rating: 5
         }
     ];
@@ -166,20 +178,17 @@ export default function Home() {
             {/* Tagline Badge */}
             <div className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-black uppercase tracking-wider mb-6">
               <Sparkles className="h-4 w-4 text-cyan-400 animate-spin" style={{ animationDuration: "3s" }}/>
-              <span>India's Premium Institutional Land Network</span>
+              <span>{t.hero?.badge || "Tamil Nadu Zero-Trust Land Marketplace"}</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-[1.12] mb-6">
-              The Smarter Way to Transact <br className="hidden sm:inline"/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400">
-                Land, Capital, & Vision
-              </span>
+            <h1 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight text-white leading-[1.15] mb-6">
+              {t.hero?.title || "Direct Verified Land Deals with AI Forensics & 3D Spatial Intelligence"}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-xl text-slate-300 font-medium max-w-3xl mx-auto mb-10 leading-relaxed">
-              Connect direct landowners, capital investors, and builders in one transparent digital marketplace. Powered by institutional AI valuations and 100% legal title diligence.
+            <p className="text-base sm:text-lg text-slate-300 font-medium max-w-3xl mx-auto mb-10 leading-relaxed">
+              {t.hero?.subtitle || "Eliminate counterfeit deeds, court disputes, and 2-3% middleman brokerage. Transact directly with government-verified landowners across prime growth corridors."}
             </p>
 
             {/* Search Box */}
@@ -188,7 +197,7 @@ export default function Home() {
                 <Search className="h-4.5 w-4.5 text-cyan-400 left-3 absolute"/>
                 <input 
                   type="text" 
-                  placeholder="Keyword (e.g. industrial, IT park, residential)..." 
+                  placeholder={t.actions?.searchPlaceholder || "Search by district, survey no, or keyword..."}
                   value={searchQuery} 
                   onChange={(e) => setSearchQuery(e.target.value)} 
                   className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-950/80 border-0 focus:ring-0 focus:outline-none font-medium text-white placeholder:text-slate-400"
@@ -199,7 +208,7 @@ export default function Home() {
                 <MapPin className="h-4.5 w-4.5 text-indigo-400 left-3 absolute"/>
                 <input 
                   type="text" 
-                  placeholder="Location / Region..." 
+                  placeholder={t.actions?.locationPlaceholder || "All Tamil Nadu Districts"}
                   value={searchLocation} 
                   onChange={(e) => setSearchLocation(e.target.value)} 
                   className="w-full pl-9 pr-3 py-2.5 text-sm bg-slate-950/80 border-0 focus:ring-0 focus:outline-none font-medium text-white placeholder:text-slate-400"
@@ -209,7 +218,7 @@ export default function Home() {
                 href={`/listings?search=${encodeURIComponent(searchQuery + " " + searchLocation)}`} 
                 className="bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-sm px-6 py-3 rounded-xl shadow-lg shadow-cyan-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 whitespace-nowrap cursor-pointer"
               >
-                <span>Search Listings</span>
+                <span>{t.actions?.search || "Search Listings"}</span>
                 <ArrowRight className="h-4 w-4"/>
               </Link>
             </div>
@@ -217,11 +226,11 @@ export default function Home() {
             {/* Hero Quick Actions */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/spatial-studio" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-black bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-xl shadow-cyan-500/30 hover:scale-[1.02] transition-all duration-200">
-                <span>Launch 3D Spatial Studio</span>
+                <span>{lang === "ta" ? "3D நில வரைபடத்தை தொடங்கு" : "Launch 3D Spatial Studio"}</span>
                 <Sparkles className="h-5 w-5 text-cyan-200 animate-spin" style={{ animationDuration: "5s" }}/>
               </Link>
               <Link href="/listings/create" className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-2xl text-base font-bold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 shadow-lg hover:scale-[1.02] transition-all duration-200">
-                <span>List Your Property</span>
+                <span>{t.hero?.listLand || "List Your Property"}</span>
                 <ArrowRight className="h-5 w-5 text-cyan-400"/>
               </Link>
             </div>
@@ -254,17 +263,17 @@ export default function Home() {
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider mb-3">
                 <CheckCircle2 className="h-3.5 w-3.5"/>
-                <span>Verified Deals</span>
+                <span>{t.verification?.tamilNilamPassed || "Verified Deals"}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-                Featured Verified Parcels
+                {t.homeSections?.featuredTitle || "Featured Verified Parcels"}
               </h2>
               <p className="text-slate-400 font-medium mt-2 max-w-xl text-sm">
-                Explore real estate investment-ready lots with fully validated titles, deeds, and zoning classifications.
+                {t.homeSections?.featuredSubtitle || "Explore real estate investment-ready lots with fully validated titles, deeds, and zoning classifications."}
               </p>
             </div>
             <Link href="/listings" className="mt-4 md:mt-0 inline-flex items-center gap-1 text-sm font-bold text-cyan-400 hover:text-cyan-300 hover:gap-2 transition-all">
-              <span>View All listings ({properties.length || 3}+)</span>
+              <span>{t.homeSections?.viewAllListings || `View All listings (${properties.length || 3}+)`}</span>
               <ChevronRight className="h-4.5 w-4.5"/>
             </Link>
           </div>
@@ -306,10 +315,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-              Tailored Ecosystem Workspaces
+              {lang === "ta" ? "அனைத்து பயனர் பணியிடங்கள்" : "Tailored Ecosystem Workspaces"}
             </h2>
             <p className="text-slate-400 font-medium mt-4 text-sm">
-              Whether you are a private landowner, local developer, or institutional asset fund, LandLinkX provides a custom portal.
+              {lang === "ta"
+                ? "நில உரிமையாளர், உள்ளூர் பில்டர் அல்லது நிறுவன முதலீட்டு நிதி என எதுவாக இருந்தாலும் தனிப்பயன் போர்ட்டல்."
+                : "Whether you are a private landowner, local developer, or institutional asset fund, LandLinkX provides a custom portal."}
             </p>
           </div>
 
@@ -335,7 +346,7 @@ export default function Home() {
                     </ul>
 
                     <Link href={role.link} className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl border border-cyan-500/30 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 font-black text-xs transition-all duration-200 shadow-sm uppercase tracking-wider">
-                      <span>Enter Workspace</span>
+                      <span>{lang === "ta" ? "பணியிடத்திற்குள் செல்க" : "Enter Workspace"}</span>
                       <ArrowUpRight className="h-4 w-4"/>
                     </Link>
                   </div>
@@ -353,13 +364,13 @@ export default function Home() {
             <div>
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-xs font-bold uppercase tracking-wider mb-6">
                 <Sparkles className="h-3.5 w-3.5 text-cyan-400 animate-pulse"/>
-                <span>Try Mini Calculator</span>
+                <span>{lang === "ta" ? "AI மதிப்பீட்டு கால்குலேட்டர்" : "Try Mini Calculator"}</span>
               </div>
               <h2 className="text-3xl sm:text-4xl font-black tracking-tight text-white mb-6">
-                Instant Automated Land Valuation
+                {t.homeSections?.valuationTitle || "Instant Automated Land Valuation"}
               </h2>
               <p className="text-slate-400 font-medium leading-relaxed mb-8 text-sm">
-                Curious about your property's market value? Input basic variables into our interactive estimator. For complete audits including NH connectivity modifiers and deep water statistics, visit our main tool.
+                {t.homeSections?.valuationSubtitle || "Curious about your property's market value? Input basic variables into our interactive estimator."}
               </p>
 
               <div className="space-y-6">
@@ -393,7 +404,9 @@ export default function Home() {
 
                 <form onSubmit={handleQuickCalculate} className="space-y-5">
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Acres Area</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                      {t.homeSections?.quickAcresLabel || "Acres Area"}
+                    </label>
                     <input 
                       type="number" 
                       step="0.01" 
@@ -406,16 +419,18 @@ export default function Home() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">Zoning Classification</label>
+                    <label className="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                      {t.homeSections?.quickZoningLabel || "Zoning Classification"}
+                    </label>
                     <select 
                       value={quickZoning} 
                       onChange={(e) => setQuickZoning(e.target.value)} 
                       className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-cyan-500 text-white font-semibold cursor-pointer"
                     >
-                      <option value="Residential" className="text-white bg-slate-900">Residential Development</option>
-                      <option value="Commercial" className="text-white bg-slate-900">Commercial / IT Park</option>
-                      <option value="Industrial" className="text-white bg-slate-900">Industrial Zone</option>
-                      <option value="Agricultural" className="text-white bg-slate-900">Agricultural Land</option>
+                      <option value="Residential" className="text-white bg-slate-900">{lang === "ta" ? "குடியிருப்பு மண்டலம்" : "Residential Development"}</option>
+                      <option value="Commercial" className="text-white bg-slate-900">{lang === "ta" ? "வணிக / ஐடி பூங்கா" : "Commercial / IT Park"}</option>
+                      <option value="Industrial" className="text-white bg-slate-900">{lang === "ta" ? "தொழில்துறை மண்டலம்" : "Industrial Zone"}</option>
+                      <option value="Agricultural" className="text-white bg-slate-900">{lang === "ta" ? "விவசாய நிலம்" : "Agricultural Land"}</option>
                     </select>
                   </div>
 
@@ -424,19 +439,19 @@ export default function Home() {
                     className="w-full bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs py-3.5 px-4 rounded-xl shadow-lg shadow-cyan-500/25 active:scale-[0.98] transition-all flex items-center justify-center gap-2 cursor-pointer border-0 uppercase tracking-wider"
                   >
                     <Sparkles className="h-4.5 w-4.5 text-cyan-200"/>
-                    <span>Estimate Valuation</span>
+                    <span>{t.homeSections?.estimateBtn || "Estimate Valuation"}</span>
                   </button>
                 </form>
 
                 {quickValuation !== null && (
                   <div className="mt-6 p-4 rounded-2xl bg-slate-950 border border-slate-800 text-center animate-in fade-in zoom-in-95 duration-200">
-                    <p className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Estimated Base Value</p>
+                    <p className="text-xs font-bold text-cyan-400 uppercase tracking-wider">{t.homeSections?.estimatedValue || "Estimated Base Value"}</p>
                     <p className="text-3xl font-black text-white mt-1">
                       ₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(quickValuation)}
                     </p>
                     <p className="text-[10px] text-slate-400 mt-1">*Based on regional registrar baseline indices.</p>
                     <Link href="/ai-price" className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-cyan-400 hover:text-cyan-300 transition-colors">
-                      <span>Generate Full Audit Report</span>
+                      <span>{lang === "ta" ? "முழு அறிக்கையை பார்வையிடுங்கள்" : "Generate Full Audit Report"}</span>
                       <ArrowRight className="h-3 w-3"/>
                     </Link>
                   </div>
@@ -452,10 +467,10 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight">
-              Trusted by Top Developers & Landowners
+              {lang === "ta" ? "முன்னணி பில்டர்கள் மற்றும் உரிமையாளர்களின் நம்பிக்கை" : "Trusted by Top Developers & Landowners"}
             </h2>
             <p className="text-slate-400 font-medium mt-3 text-sm">
-              See how builders and landlords are completely bypassing standard agent costs.
+              {lang === "ta" ? "தரகர் செலவின்றி நிலங்களை வாங்குவது எப்படி என்பதை பாருங்கள்." : "See how builders and landlords are completely bypassing standard agent costs."}
             </p>
           </div>
 
@@ -494,35 +509,37 @@ export default function Home() {
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white font-bold">
                   <MapPin className="h-4.5 w-4.5"/>
                 </div>
-                <span className="text-xl font-black text-white tracking-wide">LandLinkX</span>
+                <span className="text-xl font-black text-white tracking-wide">{t.brandName || "LandLinkX"}</span>
               </div>
               <p className="text-slate-400 text-xs max-w-sm font-medium leading-relaxed">
-                India's next-gen ecosystem digitalizing land transactions with transparent titles and AI-powered valuations.
+                {t.tagline || "India's next-gen ecosystem digitalizing land transactions with transparent titles and AI-powered valuations."}
               </p>
             </div>
 
             <div className="flex flex-wrap gap-8 lg:gap-16 text-xs font-bold">
               <div>
-                <h6 className="text-white text-xs font-black uppercase tracking-wider mb-4">Marketplace</h6>
+                <h6 className="text-white text-xs font-black uppercase tracking-wider mb-4">{t.navListings || "Marketplace"}</h6>
                 <div className="flex flex-col gap-2.5 text-slate-400">
-                  <Link href="/listings" className="hover:text-cyan-400 transition-colors">Listings Directory</Link>
-                  <Link href="/ai-price" className="hover:text-cyan-400 transition-colors">AI Price Predictor</Link>
-                  <Link href="/signup" className="hover:text-cyan-400 transition-colors">Register Asset</Link>
+                  <Link href="/listings" className="hover:text-cyan-400 transition-colors">{t.navListings || "Listings Directory"}</Link>
+                  <Link href="/ai-price" className="hover:text-cyan-400 transition-colors">{t.navValuation || "AI Price Predictor"}</Link>
+                  <Link href="/signup" className="hover:text-cyan-400 transition-colors">{t.actions?.publishListing || "Register Asset"}</Link>
                 </div>
               </div>
               <div>
-                <h6 className="text-white text-xs font-black uppercase tracking-wider mb-4">User Portal</h6>
+                <h6 className="text-white text-xs font-black uppercase tracking-wider mb-4">{lang === "ta" ? "பயனர் பகுதி" : "User Portal"}</h6>
                 <div className="flex flex-col gap-2.5 text-slate-400">
-                  <Link href="/login" className="hover:text-cyan-400 transition-colors">Sign In</Link>
-                  <Link href="/signup" className="hover:text-cyan-400 transition-colors">Create Account</Link>
-                  <Link href="/dashboard" className="hover:text-cyan-400 transition-colors">Portals Dashboard</Link>
+                  <Link href="/login" className="hover:text-cyan-400 transition-colors">{t.navLogin || "Sign In"}</Link>
+                  <Link href="/signup" className="hover:text-cyan-400 transition-colors">{t.navSignup || "Create Account"}</Link>
+                  <Link href="/dashboard" className="hover:text-cyan-400 transition-colors">{lang === "ta" ? "டாஷ்போர்டு" : "Portals Dashboard"}</Link>
                 </div>
               </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between text-xs font-medium text-slate-400">
-            <p>&copy; {new Date().getFullYear()} LandLinkX Inc. All rights reserved.</p>
-            <p className="mt-2 sm:mt-0 hover:text-slate-200 transition-colors cursor-pointer">Terms of Service | Privacy Policy | Legal Diligence Charter</p>
+            <p>&copy; {new Date().getFullYear()} LandLinkX Inc. {lang === "ta" ? "அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை." : "All rights reserved."}</p>
+            <p className="mt-2 sm:mt-0 hover:text-slate-200 transition-colors cursor-pointer">
+              {lang === "ta" ? "சேவை விதிமுறைகள் | தனியுரிமைக் கொள்கை | சட்ட தணிக்கை விதிமுறை" : "Terms of Service | Privacy Policy | Legal Diligence Charter"}
+            </p>
           </div>
         </div>
       </footer>

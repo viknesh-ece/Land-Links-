@@ -3,9 +3,12 @@ import Navbar from "@/components/Navbar";
 import { useState, useEffect, useRef } from "react";
 import { getLoggedInUser } from "@/lib/auth";
 import { useRouter } from "next/navigation";
+import { useLanguage } from "@/context/LanguageContext";
 import { Send, User, MessageSquare, DollarSign, Check, X, Info, Calendar, ShieldCheck, Lock, Award, FileText, FileCheck } from "lucide-react";
+
 export default function InboxPage() {
     const router = useRouter();
+    const { lang, t } = useLanguage();
     const [currentUser, setCurrentUser] = useState(null);
     const [activeThreadId, setActiveThreadId] = useState("");
     const [inputValue, setInputValue] = useState("");

@@ -1,12 +1,14 @@
 "use client";
 import { MapPin, Phone, Heart, Trash2, ArrowUpRight, ShieldCheck, Mail, User, X, Layers, Compass, DollarSign, Send, Building, TrendingUp, FileText, CheckCircle2, RotateCw, Award, Activity, ExternalLink, Zap, Satellite, Navigation } from "lucide-react";
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 import ThreeDTilt from "@/components/ThreeDTilt";
 import GovDocVerifierModal from "@/components/GovDocVerifierModal";
 import TNLandGovHub from "@/components/TNLandGovHub";
 import GISSatelliteModal from "@/components/GISSatelliteModal";
 
 export default function PropertyCard({ property }) {
+    const { lang, t } = useLanguage();
     const [isSaved, setIsSaved] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [showContact, setShowContact] = useState(false);
@@ -59,7 +61,7 @@ export default function PropertyCard({ property }) {
               
               <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/90 text-white text-[10px] font-black shadow-md backdrop-blur-md uppercase tracking-wider">
                 <ShieldCheck className="h-3.5 w-3.5"/>
-                <span>{property.verificationStatus || "Vetted Title"}</span>
+                <span>{property.verificationStatus || t.verification?.verified || "Vetted Title"}</span>
               </div>
 
               <button onClick={() => setIsSaved(!isSaved)} className={`absolute top-3 right-3 h-8.5 w-8.5 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${isSaved
@@ -75,7 +77,7 @@ export default function PropertyCard({ property }) {
                   ₹ {formattedPrice}
                 </span>
                 <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-cyan-300 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md">
-                  Parcel #{property.id}
+                  {lang === "ta" ? `நில எண் #${property.id}` : `Parcel #${property.id}`}
                 </span>
               </div>
 
@@ -94,7 +96,7 @@ export default function PropertyCard({ property }) {
 
               <div className="grid grid-cols-4 gap-2 pt-4 border-t border-slate-800">
                 <button onClick={() => setShowDetails(true)} className="col-span-2 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all cursor-pointer border-0 shadow-md shadow-cyan-600/20">
-                  Details
+                  <span>{lang === "ta" ? "விவரங்கள்" : "Details"}</span>
                   <ArrowUpRight className="h-3.5 w-3.5"/>
                 </button>
 
