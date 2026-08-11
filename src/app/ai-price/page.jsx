@@ -520,21 +520,21 @@ export default function AIPricePage() {
             URL.revokeObjectURL(url);
         }, 1500);
     };
-    return (<div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
+    return (<div className="min-h-screen bg-[#f0fdf4] text-emerald-950 flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-bold uppercase tracking-wider mb-4">
-            <Sparkles className="h-3.5 w-3.5 text-blue-600 animate-pulse"/>
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-900 text-xs font-bold uppercase tracking-wider mb-4">
+            <Sparkles className="h-3.5 w-3.5 text-emerald-700 animate-pulse"/>
             <span>{lang === "ta" ? "மேம்பட்ட AI நில மதிப்பீட்டு அல்காரிதம் v2.5" : "Advanced Valuation Algorithm v2.5"}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-3xl sm:text-4xl font-black text-emerald-950 tracking-tight">
             {t.valuation?.pageTitle || "AI Land Price Predictor"}
           </h1>
-          <p className="text-slate-500 font-medium text-xs mt-2 leading-relaxed">
+          <p className="text-emerald-900/80 font-medium text-xs mt-2 leading-relaxed">
             {t.valuation?.pageSubtitle || "Estimate accurate market pricing for your land parcel. Our models analyze land registry indices, highway proximity modifiers, zoning codes, and resource access."}
           </p>
         </div>
@@ -542,169 +542,169 @@ export default function AIPricePage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Inputs Section Stack */}
           <div className="lg:col-span-5 space-y-8 animate-fade-in">
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
-              <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3">
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+              <h3 className="text-lg font-bold text-emerald-950 border-b border-emerald-100 pb-3">
                 {t.valuation?.parametersHeading || "Parcel Parameters"}
               </h3>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">
                   {t.valuation?.acresLabel || "Acreage Area"}
                 </label>
-                <input type="number" step="0.01" placeholder="Enter Acres (e.g. 3.25)" value={acres} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-semibold text-slate-900 placeholder:text-slate-400" onChange={(e) => setAcres(e.target.value)}/>
+                <input type="number" step="0.01" placeholder="Enter Acres (e.g. 3.25)" value={acres} className="w-full px-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-semibold text-emerald-950 placeholder:text-emerald-700/60" onChange={(e) => setAcres(e.target.value)}/>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">
                   {t.valuation?.districtLabel || "Region / Corridor"}
                 </label>
                 <div className="relative">
-                  <MapPin className="h-4.5 w-4.5 text-blue-600 absolute left-3 top-3.5"/>
-                  <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-bold text-slate-900 cursor-pointer appearance-none">
-                    <option value="Coimbatore Highway Corridor" className="bg-white text-slate-900">Coimbatore Highway Corridor (கோயம்புத்தூர்)</option>
-                    <option value="Chennai Highway Corridor" className="bg-white text-slate-900">Chennai OMR / Tambaram Corridor (சென்னை)</option>
-                    <option value="Madurai Outer Expansion" className="bg-white text-slate-900">Madurai Outer Expressway (மதுரை)</option>
-                    <option value="Salem Industrial Parkway" className="bg-white text-slate-900">Salem Industrial Parkway (சேலம்)</option>
+                  <MapPin className="h-4.5 w-4.5 text-emerald-600 absolute left-3 top-3.5"/>
+                  <select value={region} onChange={(e) => setRegion(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-bold text-emerald-950 cursor-pointer appearance-none">
+                    <option value="Coimbatore Highway Corridor" className="bg-white text-emerald-950">Coimbatore Highway Corridor (கோயம்புத்தூர்)</option>
+                    <option value="Chennai Highway Corridor" className="bg-white text-emerald-950">Chennai OMR / Tambaram Corridor (சென்னை)</option>
+                    <option value="Madurai Outer Expansion" className="bg-white text-emerald-950">Madurai Outer Expressway (மதுரை)</option>
+                    <option value="Salem Industrial Parkway" className="bg-white text-emerald-950">Salem Industrial Parkway (சேலம்)</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">
                   {t.valuation?.zoningLabel || "Zoning Intended Class"}
                 </label>
                 <div className="relative">
-                  <Building className="h-4.5 w-4.5 text-indigo-600 absolute left-3 top-3.5"/>
-                  <select value={zoning} onChange={(e) => setZoning(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-bold text-slate-900 cursor-pointer appearance-none">
-                    <option value="Residential" className="bg-white text-slate-900">Residential Development</option>
-                    <option value="Commercial" className="bg-white text-slate-900">Commercial / IT Park</option>
-                    <option value="Industrial" className="bg-white text-slate-900">Industrial Warehousing</option>
-                    <option value="Agricultural" className="bg-white text-slate-900">Agricultural Land</option>
+                  <Building className="h-4.5 w-4.5 text-teal-600 absolute left-3 top-3.5"/>
+                  <select value={zoning} onChange={(e) => setZoning(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-bold text-emerald-950 cursor-pointer appearance-none">
+                    <option value="Residential" className="bg-white text-emerald-950">Residential Development</option>
+                    <option value="Commercial" className="bg-white text-emerald-950">Commercial / IT Park</option>
+                    <option value="Industrial" className="bg-white text-emerald-950">Industrial Warehousing</option>
+                    <option value="Agricultural" className="bg-white text-emerald-950">Agricultural Land</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Road Access Width</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">Road Access Width</label>
                 <div className="relative">
-                  <Compass className="h-4.5 w-4.5 text-purple-600 absolute left-3 top-3.5"/>
-                  <select value={roadWidth} onChange={(e) => setRoadWidth(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-bold text-slate-900 cursor-pointer appearance-none">
-                    <option value="Highway" className="bg-white text-slate-900">NH Highway Attached (&gt;30m)</option>
-                    <option value="4-Lane" className="bg-white text-slate-900">4-Lane Main Road (18m-24m)</option>
-                    <option value="2-Lane" className="bg-white text-slate-900">2-Lane Local Road (9m-12m)</option>
-                    <option value="Narrow" className="bg-white text-slate-900">Narrow Private Passage (&lt;6m)</option>
+                  <Compass className="h-4.5 w-4.5 text-emerald-600 absolute left-3 top-3.5"/>
+                  <select value={roadWidth} onChange={(e) => setRoadWidth(e.target.value)} className="w-full pl-10 pr-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-bold text-emerald-950 cursor-pointer appearance-none">
+                    <option value="Highway" className="bg-white text-emerald-950">NH Highway Attached (&gt;30m)</option>
+                    <option value="4-Lane" className="bg-white text-emerald-950">4-Lane Main Road (18m-24m)</option>
+                    <option value="2-Lane" className="bg-white text-emerald-950">2-Lane Local Road (9m-12m)</option>
+                    <option value="Narrow" className="bg-white text-emerald-950">Narrow Private Passage (&lt;6m)</option>
                   </select>
                 </div>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Resource Infrastructure</label>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-2">Resource Infrastructure</label>
                 <div className="space-y-3">
-                  <label className="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer p-3 border border-slate-200 rounded-xl hover:bg-slate-50 bg-slate-50">
+                  <label className="flex items-center justify-between text-xs font-bold text-emerald-950 cursor-pointer p-3 border border-emerald-200 rounded-xl hover:bg-emerald-50 bg-emerald-50/40">
                     <span className="flex items-center gap-2">
-                      <Droplets className="h-4 w-4 text-blue-600"/>
+                      <Droplets className="h-4 w-4 text-emerald-600"/>
                       Drilled Borewell water
                     </span>
-                    <input type="checkbox" checked={hasWater} onChange={(e) => setHasWater(e.target.checked)} className="rounded text-blue-600 border-slate-300 h-4.5 w-4.5 cursor-pointer focus:ring-blue-500"/>
+                    <input type="checkbox" checked={hasWater} onChange={(e) => setHasWater(e.target.checked)} className="rounded text-emerald-600 border-emerald-300 h-4.5 w-4.5 cursor-pointer focus:ring-emerald-500"/>
                   </label>
-                  <label className="flex items-center justify-between text-xs font-bold text-slate-700 cursor-pointer p-3 border border-slate-200 rounded-xl hover:bg-slate-50 bg-slate-50">
+                  <label className="flex items-center justify-between text-xs font-bold text-emerald-950 cursor-pointer p-3 border border-emerald-200 rounded-xl hover:bg-emerald-50 bg-emerald-50/40">
                     <span className="flex items-center gap-2">
-                      <Activity className="h-4 w-4 text-emerald-600"/>
+                      <Activity className="h-4 w-4 text-teal-600"/>
                       Electricity Grid Connection
                     </span>
-                    <input type="checkbox" checked={hasPower} onChange={(e) => setHasPower(e.target.checked)} className="rounded text-blue-600 border-slate-300 h-4.5 w-4.5 cursor-pointer focus:ring-blue-500"/>
+                    <input type="checkbox" checked={hasPower} onChange={(e) => setHasPower(e.target.checked)} className="rounded text-emerald-600 border-emerald-300 h-4.5 w-4.5 cursor-pointer focus:ring-emerald-500"/>
                   </label>
                 </div>
               </div>
 
-              <button onClick={calculateValuation} disabled={loading || !acres} className="w-full py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-40 text-white rounded-2xl font-bold text-sm shadow-md shadow-blue-600/20 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2 border-0">
+              <button onClick={calculateValuation} disabled={loading || !acres} className="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 disabled:opacity-40 text-white rounded-2xl font-bold text-sm shadow-md shadow-emerald-600/25 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-2 border-0">
                 {loading ? (<div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>) : (<>
-                    <Sparkles className="h-4 w-4 text-blue-200"/>
+                    <Sparkles className="h-4 w-4 text-emerald-200"/>
                     {t.valuation?.calculateBtn || "Estimate Valuation"}
                   </>)}
               </button>
             </div>
 
             {/* Zoning Reclassification Calculator Widget */}
-            <div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
-              <h3 className="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center gap-2">
-                <Building className="h-5 w-5 text-indigo-600"/> Zoning Reclassification
+            <div className="bg-white border border-emerald-100 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+              <h3 className="text-lg font-bold text-emerald-950 border-b border-emerald-100 pb-3 flex items-center gap-2">
+                <Building className="h-5 w-5 text-emerald-600"/> Zoning Reclassification
               </h3>
-              <p className="text-[11px] font-semibold text-slate-500 leading-normal">
+              <p className="text-[11px] font-semibold text-emerald-800/80 leading-normal">
                 Analyze target conversion compliance aligned with regional development regulations.
               </p>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Initial Zoning Class</label>
-                <select value={initZone} onChange={(e) => setInitZone(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-bold text-slate-900 cursor-pointer appearance-none">
-                  <option value="Agricultural" className="bg-white text-slate-900">Agricultural Land</option>
-                  <option value="Residential" className="bg-white text-slate-900">Residential Development</option>
-                  <option value="Industrial" className="bg-white text-slate-900">Industrial Warehousing</option>
-                  <option value="Commercial" className="bg-white text-slate-900">Commercial / IT Park</option>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">Initial Zoning Class</label>
+                <select value={initZone} onChange={(e) => setInitZone(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-bold text-emerald-950 cursor-pointer appearance-none">
+                  <option value="Agricultural" className="bg-white text-emerald-950">Agricultural Land</option>
+                  <option value="Residential" className="bg-white text-emerald-950">Residential Development</option>
+                  <option value="Industrial" className="bg-white text-emerald-950">Industrial Warehousing</option>
+                  <option value="Commercial" className="bg-white text-emerald-950">Commercial / IT Park</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Target Zoning Class</label>
-                <select value={targetZone} onChange={(e) => setTargetZone(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-bold text-slate-900 cursor-pointer appearance-none">
-                  <option value="Residential" className="bg-white text-slate-900">Residential Development</option>
-                  <option value="Commercial" className="bg-white text-slate-900">Commercial / IT Park</option>
-                  <option value="Industrial" className="bg-white text-slate-900">Industrial Warehousing</option>
-                  <option value="Agricultural" className="bg-white text-slate-900">Agricultural Land</option>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">Target Zoning Class</label>
+                <select value={targetZone} onChange={(e) => setTargetZone(e.target.value)} className="w-full px-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-bold text-emerald-950 cursor-pointer appearance-none">
+                  <option value="Residential" className="bg-white text-emerald-950">Residential Development</option>
+                  <option value="Commercial" className="bg-white text-emerald-950">Commercial / IT Park</option>
+                  <option value="Industrial" className="bg-white text-emerald-950">Industrial Warehousing</option>
+                  <option value="Agricultural" className="bg-white text-emerald-950">Agricultural Land</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1.5">Conversion Area (Acres)</label>
-                <input type="number" step="0.01" placeholder="Enter Acres (e.g. 1.5)" value={zoneAcres} className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-blue-500 text-sm font-semibold text-slate-900 placeholder:text-slate-400" onChange={(e) => setZoneAcres(e.target.value)}/>
+                <label className="block text-[10px] font-bold uppercase tracking-wider text-emerald-900 mb-1.5">Conversion Area (Acres)</label>
+                <input type="number" step="0.01" placeholder="Enter Acres (e.g. 1.5)" value={zoneAcres} className="w-full px-4 py-3 rounded-xl bg-emerald-50/50 border border-emerald-200 focus:bg-white focus:outline-none focus:ring-1 focus:ring-emerald-600 text-sm font-semibold text-emerald-950 placeholder:text-emerald-700/60" onChange={(e) => setZoneAcres(e.target.value)}/>
               </div>
 
-              <button onClick={calculateZoningFeasibility} disabled={zoningLoading || !zoneAcres} className="w-full py-3.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 disabled:opacity-40 text-slate-800 rounded-2xl font-bold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2">
-                {zoningLoading ? (<div className="h-4 w-4 border-2 border-slate-600 border-t-transparent rounded-full animate-spin"></div>) : (<>
-                    <Activity className="h-4 w-4 text-blue-600"/> Calculate Feasibility
+              <button onClick={calculateZoningFeasibility} disabled={zoningLoading || !zoneAcres} className="w-full py-3.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 disabled:opacity-40 text-emerald-900 rounded-2xl font-bold text-xs shadow-sm transition-all cursor-pointer flex items-center justify-center gap-2">
+                {zoningLoading ? (<div className="h-4 w-4 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin"></div>) : (<>
+                    <Activity className="h-4 w-4 text-emerald-700"/> Calculate Feasibility
                   </>)}
               </button>
 
               {/* Zoning Calculation Results */}
-              {zoningResult && (<div className="mt-4 pt-4 border-t border-slate-100 space-y-4 animate-fade-in">
+              {zoningResult && (<div className="mt-4 pt-4 border-t border-emerald-100 space-y-4 animate-fade-in">
                   
                   {/* Score & Fees */}
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-center">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Feasibility Score</p>
-                      <p className={`text-2xl font-black mt-1 ${zoningResult.score >= 70 ? "text-emerald-600" : zoningResult.score >= 50 ? "text-amber-600" : "text-rose-600"}`}>{zoningResult.score}%</p>
+                    <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 text-center">
+                      <p className="text-[9px] font-bold text-emerald-800 uppercase tracking-wider">Feasibility Score</p>
+                      <p className={`text-2xl font-black mt-1 ${zoningResult.score >= 70 ? "text-emerald-700" : zoningResult.score >= 50 ? "text-amber-700" : "text-rose-700"}`}>{zoningResult.score}%</p>
                     </div>
-                    <div className="bg-slate-50 border border-slate-200 rounded-xl p-3.5 text-center">
-                      <p className="text-[9px] font-bold text-slate-500 uppercase tracking-wider">Est. Conversion Fee</p>
-                      <p className="text-lg font-black text-blue-600 mt-1 truncate">
+                    <div className="bg-emerald-50/60 border border-emerald-200 rounded-xl p-3.5 text-center">
+                      <p className="text-[9px] font-bold text-emerald-800 uppercase tracking-wider">Est. Conversion Fee</p>
+                      <p className="text-lg font-black text-emerald-700 mt-1 truncate">
                         ₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(zoningResult.fees)}
                       </p>
                     </div>
                   </div>
 
                   {/* Progress bar */}
-                  <div className="w-full bg-slate-100 rounded-full h-1.5 overflow-hidden">
-                    <div className={`h-full transition-all duration-500 ${zoningResult.score >= 70 ? "bg-emerald-500" : zoningResult.score >= 50 ? "bg-amber-500" : "bg-rose-500"}`} style={{ width: `${zoningResult.score}%` }}/>
+                  <div className="w-full bg-emerald-100 rounded-full h-1.5 overflow-hidden">
+                    <div className={`h-full transition-all duration-500 ${zoningResult.score >= 70 ? "bg-emerald-600" : zoningResult.score >= 50 ? "bg-amber-500" : "bg-rose-500"}`} style={{ width: `${zoningResult.score}%` }}/>
                   </div>
 
                   {/* Compliance list */}
                   <div className="space-y-2">
-                    <h4 className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">Compliance Status</h4>
-                    <div className="grid grid-cols-2 gap-2 text-[10px] font-semibold text-slate-700">
+                    <h4 className="text-[9px] font-bold text-emerald-900 uppercase tracking-widest">Compliance Status</h4>
+                    <div className="grid grid-cols-2 gap-2 text-[10px] font-semibold text-emerald-950">
                       <div className="flex items-center gap-1.5">
-                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.roadWidth ? "bg-emerald-500" : "bg-rose-500"}`}/>
+                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.roadWidth ? "bg-emerald-600" : "bg-rose-500"}`}/>
                         <span>Road Width Check</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.eia ? "bg-emerald-500" : "bg-rose-500"}`}/>
+                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.eia ? "bg-emerald-600" : "bg-rose-500"}`}/>
                         <span>EIA Compliance NOC</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.masterPlan ? "bg-emerald-500" : "bg-rose-500"}`}/>
+                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.masterPlan ? "bg-emerald-600" : "bg-rose-500"}`}/>
                         <span>Master Plan alignment</span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.fireSafety ? "bg-emerald-500" : "bg-rose-500"}`}/>
+                        <span className={`h-1.5 w-1.5 rounded-full ${zoningResult.compliance.fireSafety ? "bg-emerald-600" : "bg-rose-500"}`}/>
                         <span>Fire Access audit</span>
                       </div>
                     </div>
@@ -716,65 +716,65 @@ export default function AIPricePage() {
 
           {/* Results Section */}
           <div className="lg:col-span-7">
-            {valuation ? (<div className="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 animate-in fade-in duration-200">
-                <div className="flex justify-between items-center border-b border-slate-100 pb-4">
+            {valuation ? (<div className="bg-white border border-emerald-200 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6 animate-in fade-in duration-200">
+                <div className="flex justify-between items-center border-b border-emerald-100 pb-4">
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900">
+                    <h3 className="text-lg font-bold text-emerald-950">
                       {t.valuation?.appraisalCert || "AI Valuation Estimate"}
                     </h3>
-                    <p className="text-slate-500 text-xs font-semibold mt-0.5">Calculated based on {acres} Acres in {region}</p>
+                    <p className="text-emerald-800/80 text-xs font-semibold mt-0.5">Calculated based on {acres} Acres in {region}</p>
                   </div>
-                  <span className="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-xl flex items-center gap-1.5">
-                    <ShieldCheck className="h-4 w-4"/> Confidence: {valuation.confidence}%
+                  <span className="text-xs font-bold text-emerald-900 bg-emerald-100 border border-emerald-300 px-3 py-1 rounded-xl flex items-center gap-1.5">
+                    <ShieldCheck className="h-4 w-4 text-emerald-700"/> Confidence: {valuation.confidence}%
                   </span>
                 </div>
 
                 {/* Major pricing Display */}
-                <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200 text-center">
-                  <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">{t.valuation?.fairMarketHeading || "Calculated Median Valuation"}</p>
-                  <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-indigo-600 to-emerald-600 mt-2 tracking-tight">
+                <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 text-center">
+                  <p className="text-xs font-bold text-emerald-800 uppercase tracking-widest">{t.valuation?.fairMarketHeading || "Calculated Median Valuation"}</p>
+                  <p className="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-800 mt-2 tracking-tight">
                     ₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(valuation.base)}
                   </p>
-                  <div className="flex justify-center gap-6 mt-4 pt-4 border-t border-slate-200 text-xs font-bold text-slate-500">
+                  <div className="flex justify-center gap-6 mt-4 pt-4 border-t border-emerald-200 text-xs font-bold text-emerald-800">
                     <div>
                       <span>Low Estimate</span>
-                      <p className="text-slate-900 mt-0.5">₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(valuation.low)}</p>
+                      <p className="text-emerald-950 mt-0.5">₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(valuation.low)}</p>
                     </div>
-                    <div className="h-8 w-px bg-slate-200"></div>
+                    <div className="h-8 w-px bg-emerald-200"></div>
                     <div>
                       <span>High Estimate</span>
-                      <p className="text-slate-900 mt-0.5">₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(valuation.high)}</p>
+                      <p className="text-emerald-950 mt-0.5">₹ {new Intl.NumberFormat("en-IN", { maximumFractionDigits: 0 }).format(valuation.high)}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Modifiers breakdown */}
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-3.5">Factor Modifier Breakdown</h4>
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-900 mb-3.5">Factor Modifier Breakdown</h4>
                   <div className="space-y-2.5">
-                    <div className="flex justify-between text-xs font-bold text-slate-700">
-                      <span className="flex items-center gap-1.5"><Building className="h-4 w-4 text-slate-400"/> Zoning class factor ({zoning})</span>
-                      <span className={valuation.zoningFactor >= 1 ? "text-emerald-600" : "text-rose-600"}>
+                    <div className="flex justify-between text-xs font-bold text-emerald-950">
+                      <span className="flex items-center gap-1.5"><Building className="h-4 w-4 text-emerald-600"/> Zoning class factor ({zoning})</span>
+                      <span className={valuation.zoningFactor >= 1 ? "text-emerald-700" : "text-rose-600"}>
                         {valuation.zoningFactor >= 1 ? "+" : ""}{(valuation.zoningFactor * 100 - 100).toFixed(0)}%
                       </span>
                     </div>
-                    <div className="flex justify-between text-xs font-bold text-slate-700">
-                      <span className="flex items-center gap-1.5"><Compass className="h-4 w-4 text-slate-400"/> Road access factor ({roadWidth})</span>
-                      <span className={valuation.roadFactor >= 1 ? "text-emerald-600" : "text-rose-600"}>
+                    <div className="flex justify-between text-xs font-bold text-emerald-950">
+                      <span className="flex items-center gap-1.5"><Compass className="h-4 w-4 text-emerald-600"/> Road access factor ({roadWidth})</span>
+                      <span className={valuation.roadFactor >= 1 ? "text-emerald-700" : "text-rose-600"}>
                         {valuation.roadFactor >= 1 ? "+" : ""}{(valuation.roadFactor * 100 - 100).toFixed(0)}%
                       </span>
                     </div>
-                    <div className="flex justify-between text-xs font-bold text-slate-700">
-                      <span className="flex items-center gap-1.5"><Droplets className="h-4 w-4 text-blue-600"/> Utility Infrastructure Add-ons</span>
-                      <span className="text-emerald-600">+ ₹ {new Intl.NumberFormat("en-IN").format(valuation.utilities)}</span>
+                    <div className="flex justify-between text-xs font-bold text-emerald-950">
+                      <span className="flex items-center gap-1.5"><Droplets className="h-4 w-4 text-emerald-600"/> Utility Infrastructure Add-ons</span>
+                      <span className="text-emerald-700">+ ₹ {new Intl.NumberFormat("en-IN").format(valuation.utilities)}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Regional Price Trend */}
-                <div className="border-t border-slate-100 pt-6">
-                  <h4 className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-4 flex items-center gap-1">
-                    <TrendingUp className="h-4 w-4 text-blue-600"/> Regional Price Appreciation Trend
+                <div className="border-t border-emerald-100 pt-6">
+                  <h4 className="text-xs font-bold uppercase tracking-widest text-emerald-900 mb-4 flex items-center gap-1">
+                    <TrendingUp className="h-4 w-4 text-emerald-600"/> Regional Price Appreciation Trend
                   </h4>
                   <div className="flex items-end justify-between h-24 pt-4 px-2">
                     {[
@@ -784,32 +784,32 @@ export default function AIPricePage() {
                       { year: "2026 (Est)", height: "h-full", change: "+28%", active: true }
                     ].map((bar, idx) => (
                       <div key={idx} className="flex-1 flex flex-col items-center gap-1">
-                        <span className="text-[9px] font-bold text-emerald-600">{bar.change}</span>
-                        <div className={`w-12 ${bar.height} rounded-t-lg transition-all duration-500 ${bar.active ? "bg-blue-600" : "bg-slate-200"}`}></div>
-                        <span className="text-[10px] font-bold text-slate-500 mt-1">{bar.year}</span>
+                        <span className="text-[9px] font-bold text-emerald-700">{bar.change}</span>
+                        <div className={`w-12 ${bar.height} rounded-t-lg transition-all duration-500 ${bar.active ? "bg-emerald-600" : "bg-emerald-200"}`}></div>
+                        <span className="text-[10px] font-bold text-emerald-800 mt-1">{bar.year}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Action button: generate PDF */}
-                <div className="border-t border-slate-100 pt-6 flex flex-col sm:flex-row gap-3">
-                  <button onClick={generatePDFReport} disabled={reportLoading} className="flex-grow py-3.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer flex items-center justify-center gap-2">
-                    {reportLoading ? (<div className="h-4 w-4 border-2 border-slate-600 border-t-transparent rounded-full animate-spin"></div>) : (<>
-                        <FileDown className="h-4.5 w-4.5 text-blue-600"/>
+                <div className="border-t border-emerald-100 pt-6 flex flex-col sm:flex-row gap-3">
+                  <button onClick={generatePDFReport} disabled={reportLoading} className="flex-grow py-3.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 rounded-xl text-xs font-bold transition-all shadow-sm cursor-pointer flex items-center justify-center gap-2">
+                    {reportLoading ? (<div className="h-4 w-4 border-2 border-emerald-700 border-t-transparent rounded-full animate-spin"></div>) : (<>
+                        <FileDown className="h-4.5 w-4.5 text-emerald-700"/>
                         {t.valuation?.downloadCertBtn || "Download Valuation Report PDF"}
                       </>)}
                   </button>
                   <Link href="/listings/create" className="sm:w-auto">
-                    <button className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-xs font-bold transition-all cursor-pointer border-0 shadow-md">
+                    <button className="w-full sm:w-auto px-6 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white rounded-xl text-xs font-bold transition-all cursor-pointer border-0 shadow-md">
                       {t.actions?.publishListing || "List Property Now"}
                     </button>
                   </Link>
                 </div>
-              </div>) : (<div className="bg-white border border-slate-200 rounded-3xl p-10 shadow-sm text-center flex flex-col justify-center items-center h-full min-h-[400px]">
-                <Scale className="h-12 w-12 text-slate-400 mb-4 animate-pulse"/>
-                <h4 className="text-base font-bold text-slate-900">Estimation Report Awaiting Parameters</h4>
-                <p className="text-slate-500 text-xs font-semibold max-w-sm mx-auto leading-relaxed mt-1">
+              </div>) : (<div className="bg-white border border-emerald-200 rounded-3xl p-10 shadow-sm text-center flex flex-col justify-center items-center h-full min-h-[400px]">
+                <Scale className="h-12 w-12 text-emerald-600 mb-4 animate-pulse"/>
+                <h4 className="text-base font-bold text-emerald-950">Estimation Report Awaiting Parameters</h4>
+                <p className="text-emerald-800/80 text-xs font-semibold max-w-sm mx-auto leading-relaxed mt-1">
                   Fill in the acreage size, select regional zone corridors, and click "Estimate Valuation" to view detailed baseline ranges and mod factor audits.
                 </p>
               </div>)}

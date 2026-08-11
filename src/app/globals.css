@@ -2,80 +2,80 @@
 
 @layer base {
   :root {
-    --background: #f8fafc;
-    --foreground: #0f172a;
+    --background: #f0fdf4;
+    --foreground: #064e3b;
     
     --card: #ffffff;
-    --card-foreground: #0f172a;
+    --card-foreground: #064e3b;
     
-    --primary: #2563eb;
+    --primary: #059669;
     --primary-foreground: #ffffff;
     
-    --secondary: #4f46e5;
+    --secondary: #0d9488;
     --secondary-foreground: #ffffff;
     
-    --accent: #059669;
+    --accent: #10b981;
     --accent-foreground: #ffffff;
     
-    --border: #e2e8f0;
-    --ring: rgba(37, 99, 235, 0.2);
+    --border: #d1fae5;
+    --ring: rgba(5, 150, 105, 0.25);
   }
 
   body {
-    background-color: #f8fafc;
-    color: #0f172a;
+    background-color: #f0fdf4;
+    color: #064e3b;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     overflow-x: hidden;
   }
 
-  /* Executive Proptech Clean Light Cards */
+  /* Luxury Green & White Executive Cards */
   .aurora-card {
     background: #ffffff;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+    border: 1px solid #d1fae5;
+    box-shadow: 0 10px 30px -5px rgba(6, 78, 59, 0.07), 0 4px 6px -2px rgba(6, 78, 59, 0.03);
     backdrop-filter: blur(16px);
   }
 
-  /* Crisp Linear Blue Gradient Text */
+  /* Emerald to Teal Gradient Text */
   .text-aurora-gradient {
-    background: linear-gradient(135deg, #1d4ed8 0%, #4338ca 50%, #059669 100%);
+    background: linear-gradient(135deg, #047857 0%, #059669 50%, #0d9488 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
-  /* Inputs, Selects & Forms (Clean Light Theme) */
+  /* Inputs, Selects & Forms (Green & White Theme) */
   input, select, textarea {
     background-color: #ffffff !important;
-    color: #0f172a !important;
-    border-color: #cbd5e1 !important;
+    color: #064e3b !important;
+    border-color: #a7f3d0 !important;
   }
   input:focus, select:focus, textarea:focus {
-    border-color: #2563eb !important;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12) !important;
+    border-color: #059669 !important;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15) !important;
   }
   input::placeholder {
-    color: #94a3b8 !important;
+    color: #6ee7b7 !important;
   }
   option {
     background-color: #ffffff !important;
-    color: #0f172a !important;
+    color: #064e3b !important;
   }
 }
 
-/* Custom Scrollbar for Clean Light Theme */
+/* Custom Scrollbar for Green & White Theme */
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #ecfdf5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #a7f3d0;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #059669;
 }
 
 @keyframes slideUp {

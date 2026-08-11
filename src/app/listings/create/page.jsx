@@ -356,27 +356,27 @@ export default function CreatePropertyPage() {
     };
 
     return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#f0fdf4] text-emerald-950 flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-grow flex items-center justify-center p-4 py-12 relative overflow-hidden">
         
-        {/* Soft Ambient Light Fields */}
-        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-indigo-100/40 rounded-full blur-3xl pointer-events-none"></div>
+        {/* Soft Ambient Green Glows */}
+        <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-emerald-200/50 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-teal-200/40 rounded-full blur-3xl pointer-events-none"></div>
 
-        <div className="w-full max-w-3xl bg-white border border-slate-200 rounded-3xl p-6 sm:p-10 shadow-sm relative z-10 text-slate-900">
+        <div className="w-full max-w-3xl bg-white border border-emerald-100 rounded-3xl p-6 sm:p-10 shadow-sm relative z-10 text-emerald-950">
           
           {submitted ? (
             <div className="text-center py-12 space-y-6 animate-in zoom-in-95 duration-200">
-              <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 border border-emerald-200 mb-2">
+              <div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 border border-emerald-300 mb-2">
                 <CheckCircle2 className="h-10 w-10 animate-bounce"/>
               </div>
-              <h2 className="text-3xl font-black text-slate-900">Property Verified & Registered!</h2>
-              <p className="text-slate-500 font-medium text-sm max-w-md mx-auto">
+              <h2 className="text-3xl font-black text-emerald-950">Property Verified & Registered!</h2>
+              <p className="text-emerald-800/80 font-medium text-sm max-w-md mx-auto">
                 Your land listing has passed mandatory TamilNilam anti-scammer title verification and is now live on the institutional directory.
               </p>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-50 text-blue-600 text-xs font-mono border border-slate-200">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 text-emerald-700 text-xs font-mono border border-emerald-200">
                 <Sparkles className="h-4 w-4 animate-spin"/>
                 Redirecting to Listings Directory...
               </div>
@@ -387,14 +387,14 @@ export default function CreatePropertyPage() {
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <div>
-                    <span className="text-xs font-black uppercase tracking-widest text-blue-600">
+                    <span className="text-xs font-black uppercase tracking-widest text-emerald-700">
                       {lang === "ta" ? "மோசடி தடுப்பு நுழைவாயில்" : "Anti-Scammer Guarded Gateway"}
                     </span>
-                    <h1 className="text-2xl font-black text-slate-900 mt-0.5">
+                    <h1 className="text-2xl font-black text-emerald-950 mt-0.5">
                       {t.createProperty?.pageTitle || "Register & List Land Parcel"}
                     </h1>
                   </div>
-                  <span className="text-xs font-bold text-slate-600 bg-slate-100 px-3 py-1 rounded-full border border-slate-200">
+                  <span className="text-xs font-bold text-emerald-900 bg-emerald-100 px-3 py-1 rounded-full border border-emerald-300">
                     {lang === "ta" ? `படி ${step} / 5` : `Step ${step} of 5`}
                   </span>
                 </div>
@@ -406,8 +406,8 @@ export default function CreatePropertyPage() {
                       key={s}
                       className={`h-2 rounded-full transition-all duration-300 ${
                         s <= step
-                          ? "bg-gradient-to-r from-blue-600 to-indigo-600 shadow-md shadow-blue-600/20"
-                          : "bg-slate-100 border border-slate-200"
+                          ? "bg-gradient-to-r from-emerald-600 to-teal-700 shadow-md shadow-emerald-600/25"
+                          : "bg-emerald-100/60 border border-emerald-200"
                       }`}
                     ></div>
                   ))}
@@ -424,12 +424,12 @@ export default function CreatePropertyPage() {
               {/* STEP 1: MANDATORY TAMILNILAM PRE-VERIFICATION & ANTI-SCAMMER LOCK */}
               {step === 1 && (
                 <div className="space-y-6 animate-fade-in">
-                  <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 space-y-1">
-                    <div className="flex items-center gap-2 text-blue-900 font-black text-xs uppercase tracking-wider">
-                      <ShieldCheck className="h-4 w-4 text-blue-600" />
+                  <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-1">
+                    <div className="flex items-center gap-2 text-emerald-950 font-black text-xs uppercase tracking-wider">
+                      <ShieldCheck className="h-4 w-4 text-emerald-600" />
                       {t.createProperty?.step1Title || "Mandatory TamilNilam Anti-Scammer Title Verification"}
                     </div>
-                    <p className="text-xs text-slate-600 font-medium leading-relaxed">
+                    <p className="text-xs text-emerald-800/80 font-medium leading-relaxed">
                       {t.createProperty?.step1Desc || "To prevent scammers from listing fraudulent or disputed properties, you must verify that your land is registered in the official TamilNilam Revenue database before registration is unlocked."}
                     </p>
                   </div>

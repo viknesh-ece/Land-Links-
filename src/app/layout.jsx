@@ -11,7 +11,7 @@ export const metadata = {
 export default function RootLayout({ children, }) {
     return (
     <html lang="en">
-      <body className="antialiased bg-[#f8fafc] min-h-screen text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
+      <body className="antialiased bg-[#f0fdf4] min-h-screen text-[#064e3b] overflow-x-hidden selection:bg-emerald-600 selection:text-white">
         <LanguageProvider>
           <Animated3DBackground />
           <AICopilot />
