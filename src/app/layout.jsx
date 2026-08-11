@@ -9,8 +9,9 @@ export const metadata = {
 };
 
 export default function RootLayout({ children, }) {
-    return (<html lang="en" className="dark">
-      <body className="antialiased bg-[#070b14] min-h-screen text-slate-100 overflow-x-hidden selection:bg-cyan-500 selection:text-slate-950">
+    return (
+    <html lang="en">
+      <body className="antialiased bg-[#f8fafc] min-h-screen text-slate-900 overflow-x-hidden selection:bg-blue-600 selection:text-white">
         <LanguageProvider>
           <Animated3DBackground />
           <AICopilot />
@@ -19,6 +20,6 @@ export default function RootLayout({ children, }) {
           </div>
         </LanguageProvider>
       </body>
-    </html>);
+    </html>
+    );
 }
-

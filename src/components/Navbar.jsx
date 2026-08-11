@@ -45,25 +45,25 @@ export default function Navbar() {
         { name: t.navSpatial || "3D Spatial Studio", href: "/spatial-studio", icon: Sparkles, highlight: true },
         { name: t.navListings || "Land Marketplace", href: "/listings", icon: Landmark },
         { name: t.navValuation || "AI Land Valuation", href: "/ai-price", icon: TrendingUp },
-        { name: "Demo Playground", href: "/admin/analytics", icon: Sparkles },
-        { name: "Admin Audit", href: "/admin/dashboard", icon: ShieldAlert },
+        { name: lang === "ta" ? "டெமோ ஆவணங்கள்" : "Demo Playground", href: "/admin/analytics", icon: Sparkles },
+        { name: lang === "ta" ? "நிர்வாகி தணிக்கை" : "Admin Audit", href: "/admin/dashboard", icon: ShieldAlert },
         ...(user ? [
             { name: t.navInbox || "Inbox", href: "/inbox", icon: MessageSquare, badge: true },
-            { name: "Dashboard", href: getDashboardLink(), icon: LayoutDashboard }
+            { name: lang === "ta" ? "டாஷ்போர்டு" : "Dashboard", href: getDashboardLink(), icon: LayoutDashboard }
         ] : []),
     ];
 
     return (
-      <header className="sticky top-0 z-50 w-full border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-2xl shadow-xl">
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/90 bg-white/90 backdrop-blur-2xl shadow-sm">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 via-indigo-500 to-purple-600 text-white shadow-lg shadow-cyan-500/25 transition-transform group-hover:scale-105">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-600 via-indigo-600 to-cyan-500 text-white shadow-md shadow-blue-600/20 transition-transform group-hover:scale-105">
               <MapPin className="h-5.5 w-5.5"/>
             </div>
-            <span className="text-xl font-black text-white tracking-tight">
-              {t.brandName || "LandLink"}<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400 font-black">X</span>
+            <span className="text-xl font-black text-slate-900 tracking-tight">
+              {t.brandName || "LandLink"}<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 font-black">X</span>
             </span>
           </Link>
 
@@ -76,17 +76,17 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 relative ${
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all duration-200 relative ${
                     isActive
-                      ? "bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 scale-[1.02]"
+                      ? "bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-600/25 scale-[1.02]"
                       : item.highlight
-                      ? "bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 hover:bg-cyan-500/20"
-                      : "text-slate-300 hover:text-white hover:bg-slate-900"
+                      ? "bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
                   }`}
                 >
                   <Icon className="h-4 w-4"/>
                   <span>{item.name}</span>
-                  {item.badge && (<span className="absolute top-1.5 right-2 h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>)}
+                  {item.badge && (<span className="absolute top-1.5 right-2 h-2 w-2 rounded-full bg-blue-600 animate-pulse"></span>)}
                 </Link>
               );
           })}
@@ -98,10 +98,10 @@ export default function Navbar() {
             {/* Tamil / English Toggle Button */}
             <button
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-300 hover:border-cyan-500 text-xs font-black transition-all cursor-pointer shadow-sm"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white border border-slate-200 hover:border-blue-500 text-slate-700 hover:text-blue-600 text-xs font-black transition-all cursor-pointer shadow-sm"
               title="Toggle Tamil / English Language"
             >
-              <Globe className="h-4 w-4 text-cyan-400" />
+              <Globe className="h-4 w-4 text-blue-600" />
               <span>{lang === "en" ? "தமிழ்" : "English"}</span>
             </button>
 
@@ -109,17 +109,17 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-slate-900 border border-transparent hover:border-slate-800 transition-all cursor-pointer text-white"
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-all cursor-pointer text-slate-800"
                 >
-                  <div className="h-8.5 w-8.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white flex items-center justify-center font-black text-sm uppercase shadow-sm">
+                  <div className="h-8.5 w-8.5 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white flex items-center justify-center font-black text-sm uppercase shadow-sm">
                     {user.name.charAt(0)}
                   </div>
                   <div className="hidden sm:flex flex-col text-left">
-                    <span className="text-xs font-bold text-white leading-tight flex items-center gap-1">
+                    <span className="text-xs font-bold text-slate-900 leading-tight flex items-center gap-1">
                       {user.name}
-                      <ShieldCheck className="h-3.5 w-3.5 text-cyan-400" title="Verified User"/>
+                      <ShieldCheck className="h-3.5 w-3.5 text-blue-600" title="Verified User"/>
                     </span>
-                    <span className="text-[10px] font-extrabold text-cyan-400 uppercase tracking-wide">
+                    <span className="text-[10px] font-extrabold text-blue-600 uppercase tracking-wide">
                       {user.role}
                     </span>
                   </div>
@@ -127,56 +127,73 @@ export default function Navbar() {
                 </button>
 
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 text-white">
-                    <div className="px-4 py-2 border-b border-slate-800">
+                  <div className="absolute right-0 mt-2 w-52 rounded-2xl bg-white border border-slate-200 shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150 text-slate-800">
+                    <div className="px-4 py-2 border-b border-slate-100">
                       <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Logged in as</p>
-                      <p className="text-xs font-bold text-slate-200 truncate">{user.email}</p>
+                      <p className="text-xs font-bold text-slate-900 truncate">{user.email}</p>
                     </div>
                     
                     <Link
                       href={getDashboardLink()}
                       onClick={() => setDropdownOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-50 transition-colors"
                     >
-                      <LayoutDashboard className="h-4 w-4"/>
-                      My Dashboard
+                      <LayoutDashboard className="h-4 w-4 text-blue-600"/>
+                      {lang === "ta" ? "என் டாஷ்போர்டு" : "My Dashboard"}
                     </Link>
 
                     <Link
                       href="/admin/dashboard"
                       onClick={() => setDropdownOpen(false)}
-                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-amber-400 hover:bg-slate-800 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-amber-600 hover:bg-amber-50 transition-colors"
                     >
                       <ShieldAlert className="h-4 w-4"/>
-                      Admin Moderation Queue
+                      {lang === "ta" ? "நிர்வாகி தணிக்கை" : "Admin Audit Queue"}
                     </Link>
+
+                    <Link
+                      href="/listings/create"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-emerald-600 hover:bg-emerald-50 transition-colors"
+                    >
+                      <Landmark className="h-4 w-4"/>
+                      {t.actions?.publishListing || "+ List New Property"}
+                    </Link>
+
+                    <div className="border-t border-slate-100 my-1"></div>
 
                     <button
                       onClick={handleLogout}
-                      className="flex w-full items-center gap-2 px-4 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 transition-colors text-left cursor-pointer border-t border-slate-800"
+                      className="flex items-center gap-2 w-full text-left px-4 py-2.5 text-xs font-bold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer border-0 bg-transparent"
                     >
                       <LogOut className="h-4 w-4"/>
-                      Log Out
+                      {t.navLogout || "Sign Out"}
                     </button>
                   </div>
                 )}
               </div>
             ) : (
-              <>
-                <Link href="/login" className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-900 transition-colors">
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/login"
+                  className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-slate-700 hover:text-blue-600 hover:bg-slate-100 rounded-xl transition-all"
+                >
                   <LogIn className="h-4 w-4"/>
-                  {t.navLogin || "Sign In"}
+                  <span>{t.navLogin || "Sign In"}</span>
                 </Link>
-                <Link href="/signup" className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 transition-all duration-200 border-0">
+                <Link
+                  href="/signup"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-black bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl shadow-md shadow-blue-600/20 transition-all uppercase tracking-wider"
+                >
                   <UserPlus className="h-4 w-4"/>
-                  {t.navSignup || "Register"}
+                  <span>{t.navSignup || "Sign Up"}</span>
                 </Link>
-              </>
+              </div>
             )}
+
           </div>
 
         </div>
       </header>
     );
 }
-

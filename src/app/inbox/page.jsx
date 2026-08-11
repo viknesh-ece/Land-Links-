@@ -560,27 +560,29 @@ export default function InboxPage() {
             console.error("Negotiation Error:", err);
         }
     };
-    return (<div className="min-h-screen bg-[#070b14] text-slate-100 flex flex-col font-sans">
+    return (<div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans">
       <Navbar />
 
       <main className="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col h-[calc(100vh-80px)]">
         
         {/* dm workspace header */}
-        <div className="flex items-center gap-2 border-b border-slate-800 pb-4 mb-6 shrink-0">
-          <MessageSquare className="h-6 w-6 text-cyan-400"/>
-          <h1 className="text-2xl font-black text-white tracking-tight">Direct Negotiation Hub</h1>
-          <span className="text-[10px] font-bold text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded-full ml-2">
+        <div className="flex items-center gap-2 border-b border-slate-200 pb-4 mb-6 shrink-0">
+          <MessageSquare className="h-6 w-6 text-blue-600"/>
+          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            {t.inbox?.pageTitle || "Direct Negotiation Hub"}
+          </h1>
+          <span className="text-[10px] font-bold text-blue-700 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-full ml-2">
             Secure Encrypted Bids
           </span>
         </div>
 
         {/* chat grid container */}
-        <div className="flex-grow flex border border-slate-800 bg-slate-900/90 backdrop-blur-xl overflow-hidden shadow-2xl h-0 rounded-3xl">
+        <div className="flex-grow flex border border-slate-200 bg-white overflow-hidden shadow-sm h-0 rounded-3xl">
           
           {/* threads sidebar */}
-          <div className="w-80 border-r border-slate-800 flex flex-col shrink-0">
-            <div className="p-4 border-b border-slate-800">
-              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Active Conversations</p>
+          <div className="w-80 border-r border-slate-200 flex flex-col shrink-0">
+            <div className="p-4 border-b border-slate-100">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">Active Conversations</p>
             </div>
             <div className="flex-grow overflow-y-auto p-2 space-y-1">
               {threads.map(t => {
@@ -589,14 +591,14 @@ export default function InboxPage() {
                     setActiveThreadId(t.id);
                     t.unread = false;
                 }} className={`w-full text-left p-3.5 rounded-2xl border transition-all flex items-start gap-3 cursor-pointer ${isActive
-                    ? "bg-cyan-500/10 border-cyan-500/30 text-white"
-                    : "border-transparent hover:bg-slate-800/60 text-slate-400 hover:text-slate-200"}`}>
-                    <div className="h-9 w-9 rounded-xl bg-slate-950 border border-slate-800 flex items-center justify-center shrink-0">
-                      <User className={`h-4.5 w-4.5 ${isActive ? "text-cyan-400" : "text-slate-400"}`}/>
+                    ? "bg-blue-50 border-blue-200 text-blue-950"
+                    : "border-transparent hover:bg-slate-50 text-slate-600 hover:text-slate-900"}`}>
+                    <div className="h-9 w-9 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center shrink-0">
+                      <User className={`h-4.5 w-4.5 ${isActive ? "text-blue-600" : "text-slate-400"}`}/>
                     </div>
                     <div className="flex-grow min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-bold text-xs truncate flex items-center gap-1 text-white">
+                        <p className="font-bold text-xs truncate flex items-center gap-1 text-slate-900">
                           {t.name}
                           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" title="Verified User"/>
                         </p>
