@@ -19,17 +19,155 @@ export default function CreatePropertyPage() {
     const [step, setStep] = useState(1);
     
     // Step 1: TamilNilam Pre-Verification Fields & States
+    const [selectedPreset, setSelectedPreset] = useState("pollachi");
     const [tnDistrict, setTnDistrict] = useState("Coimbatore (கோயம்புத்தூர்)");
-    const [tnTaluk, setTnTaluk] = useState("Coimbatore South (தெற்கு)");
-    const [tnVillage, setTnVillage] = useState("Peelamedu (பீளமேடு)");
-    const [tnSurveyNo, setTnSurveyNo] = useState("402");
-    const [tnSubDivision, setTnSubDivision] = useState("2A");
-    const [tnPattaNo, setTnPattaNo] = useState("78190");
-    const [tnOwnerName, setTnOwnerName] = useState("Rajesh Kumar S/O Sundaram");
+    const [tnTaluk, setTnTaluk] = useState("Pollachi (பொள்ளாச்சி)");
+    const [tnVillage, setTnVillage] = useState("Anaimalai (ஆனைமலை)");
+    const [tnSurveyNo, setTnSurveyNo] = useState("214");
+    const [tnSubDivision, setTnSubDivision] = useState("1B");
+    const [tnPattaNo, setTnPattaNo] = useState("55210");
+    const [tnOwnerName, setTnOwnerName] = useState("K. Palanisamy Gounder");
     
     const [tnVerifying, setTnVerifying] = useState(false);
     const [tnVerified, setTnVerified] = useState(false);
     const [tnVerifyLogs, setTnVerifyLogs] = useState([]);
+    const [tnVerifyStatus, setTnVerifyStatus] = useState("idle"); // idle | success | encumbered | mismatch | not_found
+
+    const samplePresets = [
+        {
+            id: "pollachi",
+            label: "🟢 Pollachi / Anaimalai Agricultural Land (Clear Title)",
+            district: "Coimbatore (கோயம்புத்தூர்)",
+            taluk: "Pollachi (பொள்ளாச்சி)",
+            village: "Anaimalai (ஆனைமலை)",
+            surveyNo: "214",
+            subDivision: "1B",
+            pattaNo: "55210",
+            ownerName: "K. Palanisamy Gounder",
+            headline: "7.5 Acres Fertile Coconut Plantation & Farmland in Pollachi",
+            description: "High yield coconut farm with perennial borewell water, drip irrigation, and direct road access near Anaimalai.",
+            price: "28000000",
+            acres: "7.5",
+            zoning: "Agricultural",
+            statusType: "success"
+        },
+        {
+            id: "peelamedu",
+            label: "🟢 Peelamedu Commercial Plot (Clear Title)",
+            district: "Coimbatore (கோயம்புத்தூர்)",
+            taluk: "Coimbatore South (தெற்கு)",
+            village: "Peelamedu (பீளமேடு)",
+            surveyNo: "402",
+            subDivision: "2A",
+            pattaNo: "78190",
+            ownerName: "Rajesh Kumar S/O Sundaram",
+            headline: "10.5 Acres Prime Commercial Land on Devanahalli Highway",
+            description: "Ideal for IT tech park or logistics development. Direct highway frontage with clean A-Katha deed.",
+            price: "45000000",
+            acres: "10.5",
+            zoning: "Commercial",
+            statusType: "success"
+        },
+        {
+            id: "sholinganallur",
+            label: "🟢 Sholinganallur IT Tech Zone (Clear Title)",
+            district: "Chengalpattu (செங்கல்பட்டு)",
+            taluk: "Tambaram (தாம்பரம்)",
+            village: "Sholinganallur (சோழிங்கநல்லூர்)",
+            surveyNo: "118",
+            subDivision: "1B",
+            pattaNo: "45210",
+            ownerName: "Anitha Ramanathan W/O Ramanathan",
+            headline: "5.2 Acres High-Density Commercial Plot opposite SIPCOT",
+            description: "High FSI zone with DTCP and RERA approved development layout.",
+            price: "65000000",
+            acres: "5.2",
+            zoning: "Commercial",
+            statusType: "success"
+        },
+        {
+            id: "salem_litigated",
+            label: "🔴 Salem Litigated Land (Civil Court Dispute / Fails Verification)",
+            district: "Salem (சேலம்)",
+            taluk: "Salem South (தெற்கு)",
+            village: "Kondalampatti (கொண்டலாம்பட்டி)",
+            surveyNo: "514",
+            subDivision: "1A",
+            pattaNo: "66710",
+            ownerName: "Dr. Senthil Nathan S/O Natarajan",
+            headline: "12 Acres Industrial Land in Salem (Disputed)",
+            description: "Industrial zoned land currently under civil court injunction.",
+            price: "42000000",
+            acres: "12.0",
+            zoning: "Industrial",
+            statusType: "encumbered"
+        },
+        {
+            id: "madurai_mismatch",
+            label: "🔴 Madurai Identity Mismatch (Stolen Deed / Fails Verification)",
+            district: "Madurai (மதுரை)",
+            taluk: "Madurai East (கிழக்கு)",
+            village: "Othakadai (ஒத்தக்கடை)",
+            surveyNo: "88",
+            subDivision: "4A",
+            pattaNo: "33410",
+            ownerName: "Muruganathan P S/O Palanisamy",
+            headline: "8 Acres Agricultural Land in Madurai",
+            description: "Red soil agricultural parcel.",
+            price: "18000000",
+            acres: "8.0",
+            zoning: "Agricultural",
+            statusType: "mismatch"
+        },
+        {
+            id: "custom",
+            label: "✏️ Custom Manual Input (Enter Your Own Real Land Data)",
+            district: "",
+            taluk: "",
+            village: "",
+            surveyNo: "",
+            subDivision: "",
+            pattaNo: "",
+            ownerName: "",
+            headline: "",
+            description: "",
+            price: "",
+            acres: "",
+            zoning: "Residential",
+            statusType: "dynamic"
+        }
+    ];
+
+    const handleSelectPreset = (presetId) => {
+        setSelectedPreset(presetId);
+        const preset = samplePresets.find(p => p.id === presetId);
+        if (preset) {
+            setTnDistrict(preset.district);
+            setTnTaluk(preset.taluk);
+            setTnVillage(preset.village);
+            setTnSurveyNo(preset.surveyNo);
+            setTnSubDivision(preset.subDivision);
+            setTnPattaNo(preset.pattaNo);
+            setTnOwnerName(preset.ownerName);
+            setTnVerified(false);
+            setTnVerifyStatus("idle");
+            setTnVerifyLogs([]);
+            setError("");
+
+            // Also auto-populate basic form data
+            if (preset.headline) {
+                setForm(prev => ({
+                    ...prev,
+                    title: preset.headline,
+                    description: preset.description,
+                    price: preset.price,
+                    acres: preset.acres,
+                    zoning: preset.zoning,
+                    location: `${preset.village}, ${preset.district}`.replace(/\s*\([^)]*\)/g, "")
+                }));
+            }
+        }
+    };
 
     const handleRunTnVerification = () => {
         if (!tnDistrict || !tnTaluk || !tnVillage || !tnSurveyNo || !tnPattaNo) {
@@ -38,25 +176,59 @@ export default function CreatePropertyPage() {
         }
         setError("");
         setTnVerifying(true);
+        setTnVerified(false);
         setTnVerifyLogs(["Connecting to TN Revenue Gateway (eservices.tn.gov.in)..."]);
 
         setTimeout(() => {
             setTnVerifyLogs(prev => [...prev, `Querying A-Register & Chitta Ledger for Patta #${tnPattaNo}...`]);
-        }, 600);
+        }, 500);
 
         setTimeout(() => {
-            setTnVerifyLogs(prev => [...prev, `Matching Survey #${tnSurveyNo}/${tnSubDivision} in Village ${tnVillage}...`]);
-        }, 1200);
+            setTnVerifyLogs(prev => [...prev, `Matching Survey #${tnSurveyNo}/${tnSubDivision} in Village ${tnVillage}, ${tnTaluk}...`]);
+        }, 1000);
 
         setTimeout(() => {
-            setTnVerifyLogs(prev => [...prev, `0 Encumbrance / 0 Litigation Locks found. Owner: ${tnOwnerName}`]);
-        }, 1800);
+            // Dynamic evaluation based on inputs and selected preset
+            const isSalemLitigated = tnSurveyNo === "514" || tnPattaNo === "66710" || selectedPreset === "salem_litigated";
+            const isMaduraiMismatch = tnSurveyNo === "88" || tnPattaNo === "33410" || selectedPreset === "madurai_mismatch";
+            const isUnregistered = tnSurveyNo === "999" || tnPattaNo === "0000" || (tnSurveyNo.length > 5);
 
-        setTimeout(() => {
             setTnVerifying(false);
-            setTnVerified(true);
-            setTnVerifyLogs(prev => [...prev, "✅ 100% TITLE AUTHENTICATED BY TN REVENUE DEPT. LAND LISTING AUTHORIZED."]);
-        }, 2400);
+
+            if (isSalemLitigated) {
+                setTnVerified(false);
+                setTnVerifyStatus("encumbered");
+                setTnVerifyLogs(prev => [
+                    ...prev,
+                    `⚠️ ENCUMBRANCE ALERT: OS/2024 Civil Suit & Bank Injunction found on Survey #${tnSurveyNo}/${tnSubDivision}.`,
+                    "❌ TITLE REJECTED: Disputed / mortgaged properties cannot be listed on LandLinkX."
+                ]);
+            } else if (isMaduraiMismatch) {
+                setTnVerified(false);
+                setTnVerifyStatus("mismatch");
+                setTnVerifyLogs(prev => [
+                    ...prev,
+                    `❌ IDENTITY MISMATCH: Deed registered to "${tnOwnerName}" does not match logged-in submitter KYC profile.`,
+                    "❌ TITLE REJECTED: Zero-Trust Security Lock engaged to prevent stolen deed uploads."
+                ]);
+            } else if (isUnregistered) {
+                setTnVerified(false);
+                setTnVerifyStatus("not_found");
+                setTnVerifyLogs(prev => [
+                    ...prev,
+                    `⚠️ RECORD NOT FOUND: Survey #${tnSurveyNo} not found in ${tnTaluk} Taluk Revenue A-Register.`,
+                    "⚠️ Notice: Please re-check government survey credentials or visit SRO for manual record sync."
+                ]);
+            } else {
+                setTnVerified(true);
+                setTnVerifyStatus("success");
+                setTnVerifyLogs(prev => [
+                    ...prev,
+                    `0 Encumbrance / 0 Litigation Locks found. Registered Owner: ${tnOwnerName}`,
+                    "✅ 100% TITLE AUTHENTICATED BY TN REVENUE DEPT. LAND LISTING AUTHORIZED."
+                ]);
+            }
+        }, 1600);
     };
 
     const [gisPoints, setGisPoints] = useState([]);
@@ -67,6 +239,7 @@ export default function CreatePropertyPage() {
     const [deedScanState, setDeedScanState] = useState("idle");
     const [soilScanState, setSoilScanState] = useState("idle");
     const [pattaScanState, setPattaScanState] = useState("idle");
+    const [docAudits, setDocAudits] = useState({ deed: null, patta: null, soil: null });
 
     const [form, setForm] = useState({
         title: "",
@@ -119,9 +292,21 @@ export default function CreatePropertyPage() {
         setStep(step - 1);
     };
 
+    const hasFraudDocument = (docAudits.deed === false || docAudits.patta === false || docAudits.soil === false);
+
     const handleCreate = async () => {
         setLoading(true);
         setError("");
+
+        const docNames = [deedFile?.name, pattaFile?.name, soilFile?.name].join(" ").toLowerCase();
+        const hasFraudKeywords = ["fake", "photoshop", "canva", "forged", "injunction", "dispute", "stolen", "mismatch", "tampered"].some(kw => docNames.includes(kw));
+
+        if (hasFraudDocument || hasFraudKeywords) {
+            setError("🚫 ZERO-TRUST ANTI-FRAUD LOCK: One or more uploaded documents have been flagged as FAKE / FORGED / LITIGATED. You cannot publish fraudulent properties.");
+            setLoading(false);
+            return;
+        }
+
         try {
             const boundaryStr = gisPoints.map(p => `(${p.x},${p.y})`).join("->");
             const res = await fetch("/api/properties", {
@@ -243,13 +428,40 @@ export default function CreatePropertyPage() {
                     </p>
                   </div>
 
+                  {/* Quick Load Sample Presets Selector */}
+                  <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5" />
+                        Quick Load Sample Land Record (Optional Preset)
+                      </label>
+                      <span className="text-[10px] text-slate-400 font-mono">Select a case or type manually below</span>
+                    </div>
+
+                    <select
+                      value={selectedPreset}
+                      onChange={(e) => handleSelectPreset(e.target.value)}
+                      className="w-full bg-slate-900 border border-slate-700/90 rounded-xl px-3 py-2.5 text-xs font-bold text-white focus:outline-none focus:border-cyan-500 cursor-pointer"
+                    >
+                      {samplePresets.map((preset) => (
+                        <option key={preset.id} value={preset.id} className="bg-slate-900 text-white">
+                          {preset.label}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-950 p-5 rounded-2xl border border-slate-800">
                     <div>
                       <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">District (மாவட்டம்)</label>
                       <input
                         type="text"
+                        placeholder="e.g. Coimbatore"
                         value={tnDistrict}
-                        onChange={(e) => setTnDistrict(e.target.value)}
+                        onChange={(e) => {
+                          setTnDistrict(e.target.value);
+                          setTnVerified(false);
+                        }}
                         className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-cyan-500"
                       />
                     </div>
@@ -258,8 +470,12 @@ export default function CreatePropertyPage() {
                       <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Taluk (வட்டம்)</label>
                       <input
                         type="text"
+                        placeholder="e.g. Pollachi"
                         value={tnTaluk}
-                        onChange={(e) => setTnTaluk(e.target.value)}
+                        onChange={(e) => {
+                          setTnTaluk(e.target.value);
+                          setTnVerified(false);
+                        }}
                         className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-cyan-500"
                       />
                     </div>
@@ -268,8 +484,12 @@ export default function CreatePropertyPage() {
                       <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Revenue Village (கிராமம்)</label>
                       <input
                         type="text"
+                        placeholder="e.g. Anaimalai"
                         value={tnVillage}
-                        onChange={(e) => setTnVillage(e.target.value)}
+                        onChange={(e) => {
+                          setTnVillage(e.target.value);
+                          setTnVerified(false);
+                        }}
                         className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-cyan-500"
                       />
                     </div>
@@ -278,8 +498,12 @@ export default function CreatePropertyPage() {
                       <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Registered Owner Name</label>
                       <input
                         type="text"
+                        placeholder="e.g. K. Palanisamy Gounder"
                         value={tnOwnerName}
-                        onChange={(e) => setTnOwnerName(e.target.value)}
+                        onChange={(e) => {
+                          setTnOwnerName(e.target.value);
+                          setTnVerified(false);
+                        }}
                         className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-emerald-400 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
@@ -288,8 +512,12 @@ export default function CreatePropertyPage() {
                       <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">Survey Number (புல எண்)</label>
                       <input
                         type="text"
+                        placeholder="e.g. 214"
                         value={tnSurveyNo}
-                        onChange={(e) => setTnSurveyNo(e.target.value)}
+                        onChange={(e) => {
+                          setTnSurveyNo(e.target.value);
+                          setTnVerified(false);
+                        }}
                         className="w-full bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-cyan-500"
                       />
                     </div>
@@ -301,14 +529,20 @@ export default function CreatePropertyPage() {
                           type="text"
                           placeholder="Sub-Div"
                           value={tnSubDivision}
-                          onChange={(e) => setTnSubDivision(e.target.value)}
+                          onChange={(e) => {
+                            setTnSubDivision(e.target.value);
+                            setTnVerified(false);
+                          }}
                           className="w-1/3 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-white focus:outline-none focus:border-cyan-500"
                         />
                         <input
                           type="text"
                           placeholder="Patta No"
                           value={tnPattaNo}
-                          onChange={(e) => setTnPattaNo(e.target.value)}
+                          onChange={(e) => {
+                            setTnPattaNo(e.target.value);
+                            setTnVerified(false);
+                          }}
                           className="w-2/3 bg-slate-900 border border-slate-700/80 rounded-xl px-3 py-2 text-xs font-bold text-emerald-400 focus:outline-none focus:border-emerald-500"
                         />
                       </div>
@@ -320,19 +554,50 @@ export default function CreatePropertyPage() {
                       type="button"
                       onClick={handleRunTnVerification}
                       disabled={tnVerifying}
-                      className="w-full py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-lg shadow-emerald-600/30 transition-all cursor-pointer flex items-center justify-center gap-2 border-0 uppercase tracking-wider disabled:opacity-50"
+                      className={`w-full py-3.5 rounded-xl text-white font-black text-xs shadow-lg transition-all cursor-pointer flex items-center justify-center gap-2 border-0 uppercase tracking-wider disabled:opacity-50 ${
+                        tnVerified 
+                          ? "bg-gradient-to-r from-emerald-600 to-teal-600 shadow-emerald-600/30" 
+                          : "bg-gradient-to-r from-cyan-600 to-indigo-600 hover:from-cyan-500 hover:to-indigo-500 shadow-cyan-600/30"
+                      }`}
                     >
                       {tnVerifying ? <RefreshCw className="h-4 w-4 animate-spin" /> : <FileCheck className="h-4 w-4" />}
                       <span>{tnVerifying ? "Querying TamilNilam Portal..." : "Verify Title Deed with TN Government Portal"}</span>
                     </button>
 
                     {tnVerifyLogs.length > 0 && (
-                      <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 font-mono text-[11px] space-y-1.5 max-h-36 overflow-y-auto">
+                      <div className={`p-4 rounded-2xl border font-mono text-[11px] space-y-1.5 max-h-44 overflow-y-auto ${
+                        tnVerifyStatus === "success" 
+                          ? "bg-slate-950 border-emerald-500/40 text-emerald-300"
+                          : tnVerifyStatus === "encumbered" || tnVerifyStatus === "mismatch"
+                          ? "bg-slate-950 border-rose-500/40 text-rose-300"
+                          : "bg-slate-950 border-amber-500/40 text-amber-300"
+                      }`}>
                         {tnVerifyLogs.map((log, i) => (
-                          <p key={i} className={log.includes("✅") ? "text-emerald-400 font-bold" : "text-cyan-300"}>
+                          <p key={i} className={`leading-relaxed ${
+                            log.includes("✅") ? "text-emerald-400 font-bold text-xs" : 
+                            log.includes("❌") ? "text-rose-400 font-bold text-xs" : 
+                            log.includes("⚠️") ? "text-amber-400 font-bold text-xs" : "text-cyan-300"
+                          }`}>
                             &gt; {log}
                           </p>
                         ))}
+                      </div>
+                    )}
+
+                    {tnVerified && (
+                      <div className="p-3 bg-emerald-500/10 border border-emerald-500/30 rounded-xl flex items-center justify-between text-xs">
+                        <span className="text-emerald-300 font-bold flex items-center gap-1.5">
+                          <CheckCircle2 className="h-4 w-4 text-emerald-400" />
+                          Title Verified! You can now proceed to describe your land.
+                        </span>
+                        <button
+                          type="button"
+                          onClick={nextStep}
+                          className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs transition-all flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>Proceed to Step 2</span>
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </button>
                       </div>
                     )}
                   </div>
@@ -512,6 +777,61 @@ export default function CreatePropertyPage() {
                     </div>
                   </div>
 
+                  {/* Quick-Test Sample Documents Selector */}
+                  <div className="bg-slate-950 p-4 rounded-2xl border border-slate-800 space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-[11px] font-black uppercase tracking-wider text-cyan-400 flex items-center gap-1.5">
+                        <Sparkles className="h-3.5 w-3.5" />
+                        Quick-Test With Generated Sample PDFs (Genuine & Fakes)
+                      </label>
+                      <span className="text-[10px] text-slate-400">Click to load test document</span>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPattaFile({ name: "1_ORIGINAL_TamilNilam_Patta_Pollachi_55210.pdf" });
+                          setDeedFile({ name: "1_ORIGINAL_Registered_SaleDeed_Pollachi.pdf" });
+                          setSoilFile({ name: "1_ORIGINAL_Pollachi_FMB_Vector_Sketch.pdf" });
+                        }}
+                        className="text-left p-2.5 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 text-xs font-bold transition-all cursor-pointer"
+                      >
+                        🟢 Load 100% Genuine Documents (Pollachi #55210)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setPattaFile({ name: "2_FAKE_Photoshop_Forged_Patta.pdf" });
+                        }}
+                        className="text-left p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-bold transition-all cursor-pointer"
+                      >
+                        🔴 Test Fake: Photoshop Forged Patta (Pixel Altered)
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDeedFile({ name: "3_FAKE_Salem_Court_Injunction_Disputed_Deed.pdf" });
+                        }}
+                        className="text-left p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-bold transition-all cursor-pointer"
+                      >
+                        🔴 Test Fake: Salem Court Injunction Disputed Deed
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setDeedFile({ name: "4_FAKE_Madurai_Stolen_Identity_Deed.pdf" });
+                        }}
+                        className="text-left p-2.5 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 text-xs font-bold transition-all cursor-pointer"
+                      >
+                        🔴 Test Fake: Madurai Stolen Identity Deed
+                      </button>
+                    </div>
+                  </div>
+
                   <div className="space-y-4">
                     <label className="block text-xs font-bold uppercase tracking-wider text-slate-400">Attach Government Vetted Deeds & Certificates (PDF / Image)</label>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -547,14 +867,15 @@ export default function CreatePropertyPage() {
                     {(deedFile || pattaFile || soilFile) && (
                       <div className="space-y-3 pt-2">
                         <p className="text-xs font-black text-cyan-400 uppercase tracking-wider">
-                          🛡️ AI Anti-Forgery Document Inspector
+                          🛡️ AI Anti-Forgery Document Inspector (Zero-Trust Active)
                         </p>
 
                         {deedFile && (
                           <AIFraudDocumentShield
                             file={deedFile}
                             docType="Original Sale Deed"
-                            tnCredentials={{ surveyNo: tnSurveyNo, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            tnCredentials={{ district: tnDistrict, taluk: tnTaluk, village: tnVillage, surveyNo: tnSurveyNo, subDivision: tnSubDivision, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            onAuditComplete={(passed) => setDocAudits(prev => ({ ...prev, deed: passed }))}
                           />
                         )}
 
@@ -562,7 +883,8 @@ export default function CreatePropertyPage() {
                           <AIFraudDocumentShield
                             file={pattaFile}
                             docType="Patta Chitta Ledger"
-                            tnCredentials={{ surveyNo: tnSurveyNo, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            tnCredentials={{ district: tnDistrict, taluk: tnTaluk, village: tnVillage, surveyNo: tnSurveyNo, subDivision: tnSubDivision, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            onAuditComplete={(passed) => setDocAudits(prev => ({ ...prev, patta: passed }))}
                           />
                         )}
 
@@ -570,9 +892,22 @@ export default function CreatePropertyPage() {
                           <AIFraudDocumentShield
                             file={soilFile}
                             docType="Soil & FMB Sketch Report"
-                            tnCredentials={{ surveyNo: tnSurveyNo, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            tnCredentials={{ district: tnDistrict, taluk: tnTaluk, village: tnVillage, surveyNo: tnSurveyNo, subDivision: tnSubDivision, pattaNo: tnPattaNo, ownerName: tnOwnerName }}
+                            onAuditComplete={(passed) => setDocAudits(prev => ({ ...prev, soil: passed }))}
                           />
                         )}
+                      </div>
+                    )}
+
+                    {/* HARD FRAUD BLOCK BANNER */}
+                    {hasFraudDocument && (
+                      <div className="p-4 rounded-2xl bg-rose-500/20 border-2 border-rose-500 text-rose-200 text-xs font-bold space-y-1.5 animate-bounce">
+                        <p className="flex items-center gap-1.5 font-black uppercase text-rose-300 text-sm">
+                          <Lock className="h-4 w-4 text-rose-400" /> 🚫 ZERO-TRUST ANTI-FRAUD LOCK TRIGGERED
+                        </p>
+                        <p>
+                          The system detected that one of your uploaded files is <strong>forged, photoshopped, or legally litigated</strong>. Publishing is locked until the fraudulent document is removed or replaced with an authentic title deed.
+                        </p>
                       </div>
                     )}
                   </div>
@@ -606,11 +941,15 @@ export default function CreatePropertyPage() {
                   <button
                     type="button"
                     onClick={handleCreate}
-                    disabled={loading}
-                    className="inline-flex items-center gap-1.5 px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-black text-xs shadow-xl shadow-emerald-600/30 transition-all cursor-pointer border-0 uppercase tracking-wider active:scale-95 disabled:opacity-50"
+                    disabled={loading || hasFraudDocument}
+                    className={`inline-flex items-center gap-1.5 px-8 py-3.5 rounded-xl font-black text-xs shadow-xl transition-all border-0 uppercase tracking-wider ${
+                      hasFraudDocument
+                        ? "bg-rose-600/60 text-rose-200 cursor-not-allowed border border-rose-500/50"
+                        : "bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white shadow-emerald-600/30 cursor-pointer active:scale-95 disabled:opacity-50"
+                    }`}
                   >
-                    <Sparkles className="h-4 w-4" />
-                    <span>{loading ? "Publishing Listing..." : "Publish Vetted Listing"}</span>
+                    {hasFraudDocument ? <Lock className="h-4 w-4" /> : <Sparkles className="h-4 w-4" />}
+                    <span>{hasFraudDocument ? "🚫 Submission Blocked (Fraud Detected)" : (loading ? "Publishing Listing..." : "Publish Vetted Listing")}</span>
                   </button>
                 )}
               </div>

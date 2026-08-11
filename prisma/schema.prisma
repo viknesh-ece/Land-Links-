@@ -7,53 +7,98 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum VerificationStatus {
+  PENDING
+  IN_REVIEW
+  AUTOMATED_PASSED
+  VERIFIED
+  REJECTED
+  EXPIRED
+  OWNER_MISMATCH_SUSPECTED
+  FLAGGED_MANUAL_REVIEW
+}
+
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  name      String
-  email     String   @unique
-  password  String
-  role      String
-  verified  Boolean  @default(false)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String   @unique
+  password      String
+  role          String   // Landowner | Investor | Builder | Admin
+  verified      Boolean  @default(false)
+  kycVerified   Boolean  @default(false)
+  kycType       String?  // AADHAAR | PAN
+  kycNumber     String?
+  isBlacklisted Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Property {
-  id             String   @id @default(auto()) @map("_id") @db.ObjectId
-  title          String
-  description    String
-  price          Float
-  location       String
-  image          String   @default("placeholder.jpg")
-  soilReport     String?
-  landDeed       String?
-  pattaDocument  String?
-  gisCoordinates String?
-  createdAt      DateTime @default(now())
+  id                 String             @id @default(auto()) @map("_id") @db.ObjectId
+  title              String
+  description        String
+  price              Float
+  location           String
+  image              String             @default("placeholder.jpg")
+  soilReport         String?
+  landDeed           String?
+  pattaDocument      String?
+  pattaNumber        String?
+  surveyNumber       String?
+  extractedOwnerName String?            // OCR Extracted Owner Name from Deed
+  nameMatchScore     Float?             // Fuzzy match score vs user eKYC profile
+  qrValid            Boolean            @default(false)
+  geoTagVerified     Boolean            @default(false)
+  gisCoordinates     String?
+  latitude           Float?
+  longitude          Float?
+  pHash              String?            // Perceptual hash for duplicate forgery matching
+  verificationStatus VerificationStatus @default(PENDING)
+  verifiedAt         DateTime?
+  verifiedExpiresAt  DateTime?          // 6-12 months auto-expiration
+  createdAt          DateTime           @default(now())
 }
 
-model InboxThread {
+
+model VerificationLog {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  propertyId String   @db.ObjectId
+  stage      String   // MALWARE_SCAN | METADATA_FORENSICS | OCR_EXTRACTION | PHASH_CHECK | TN_GOV_LOOKUP | HUMAN_REVIEW
+  status     String   // PASSED | FAILED | WARNING
+  score      Float
+  details    String
+  checksum   String?
+  auditorId  String?
+  createdAt  DateTime @default(now())
+}
+
+model AdminReviewQueue {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  propertyId String   @db.ObjectId
+  riskScore  Float
+  reason     String
+  status     String   @default("OPEN") // OPEN | APPROVED | REJECTED
+  assignedTo String?
+  createdAt  DateTime @default(now())
+}
+
+model DealSignature {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  name          String
-  role          String
-  propertyName  String
-  propertyPrice Float
-  location      String
-  lastMessage   String
-  unread        Boolean  @default(false)
-  status        String   @default("pending")
-  myOffer       Float    @default(0)
-  counterOffer  Float?
-  userId        String   @db.ObjectId
+  threadId      String   @db.ObjectId
+  landownerSign String?  // Base64 Signature Data
+  investorSign  String?
+  agreementHash String
+  status        String   @default("DRAFT") // DRAFT | SIGNED | COMPLETED
   createdAt     DateTime @default(now())
 }
 
-model Message {
+model Notification {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  threadId  String   @db.ObjectId
-  sender    String
-  text      String
-  time      String
-  system    Boolean  @default(false)
+  userId    String   @db.ObjectId
+  title     String
+  message   String
+  type      String   // VERIFICATION | OFFER | SYSTEM
+  read      Boolean  @default(false)
   createdAt DateTime @default(now())
 }
+

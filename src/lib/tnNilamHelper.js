@@ -97,3 +97,36 @@ export function getTNLandData(property) {
     reraApproval: `TN/21/Layout/0${(numId % 899) + 100}/2025`
   };
 }
+
+export function getGPSCoordinates(property) {
+  const loc = (property?.location || "").toLowerCase();
+  const title = (property?.title || "").toLowerCase();
+
+  if (loc.includes("pollachi") || title.includes("pollachi") || loc.includes("anaimalai")) {
+    return { lat: 10.6609, lng: 77.0048, zoom: 16, label: "Pollachi Coconut Agro Sector, Coimbatore", query: "Pollachi, Tamil Nadu" };
+  }
+  if (loc.includes("peelamedu") || title.includes("peelamedu")) {
+    return { lat: 11.0264, lng: 77.0051, zoom: 17, label: "Peelamedu Commercial Hub, Coimbatore", query: "Peelamedu, Coimbatore, Tamil Nadu" };
+  }
+  if (loc.includes("saravanampatti") || title.includes("saravanampatti")) {
+    return { lat: 11.0805, lng: 76.9959, zoom: 16, label: "Saravanampatti Tech Corridor, Coimbatore", query: "Saravanampatti, Coimbatore, Tamil Nadu" };
+  }
+  if (loc.includes("kovaipudur") || title.includes("kovaipudur")) {
+    return { lat: 10.9388, lng: 76.9442, zoom: 16, label: "Kovaipudur Mountain View Sector, Coimbatore", query: "Kovaipudur, Coimbatore, Tamil Nadu" };
+  }
+  if (loc.includes("sholinganallur") || loc.includes("chengalpattu") || loc.includes("chennai")) {
+    return { lat: 12.9010, lng: 80.2279, zoom: 16, label: "Sholinganallur IT Expressway, OMR Chennai", query: "Sholinganallur, Chennai, Tamil Nadu" };
+  }
+  if (loc.includes("sriperumbudur") || loc.includes("kanchipuram")) {
+    return { lat: 12.9698, lng: 79.9405, zoom: 16, label: "Sriperumbudur Industrial Hub, Kanchipuram", query: "Sriperumbudur, Tamil Nadu" };
+  }
+  if (loc.includes("salem") || loc.includes("kondalampatti")) {
+    return { lat: 11.6214, lng: 78.1348, zoom: 16, label: "Kondalampatti, Salem South", query: "Salem, Tamil Nadu" };
+  }
+  if (loc.includes("madurai") || loc.includes("othakadai")) {
+    return { lat: 9.9723, lng: 78.1812, zoom: 16, label: "Othakadai, Madurai East", query: "Madurai, Tamil Nadu" };
+  }
+  
+  // Default to Coimbatore Prime Region
+  return { lat: 11.0168, lng: 76.9558, zoom: 15, label: property?.location || "Coimbatore, Tamil Nadu", query: `${property?.location || "Coimbatore"}, Tamil Nadu` };
+}

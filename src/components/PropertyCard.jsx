@@ -1,8 +1,10 @@
 "use client";
-import { MapPin, Phone, Heart, Trash2, ArrowUpRight, ShieldCheck, Mail, User, X, Layers, Compass, DollarSign, Send, Building, TrendingUp, FileText, CheckCircle2, RotateCw, Award, Activity, ExternalLink, Zap } from "lucide-react";
+import { MapPin, Phone, Heart, Trash2, ArrowUpRight, ShieldCheck, Mail, User, X, Layers, Compass, DollarSign, Send, Building, TrendingUp, FileText, CheckCircle2, RotateCw, Award, Activity, ExternalLink, Zap, Satellite, Navigation } from "lucide-react";
 import { useState } from "react";
 import ThreeDTilt from "@/components/ThreeDTilt";
 import GovDocVerifierModal from "@/components/GovDocVerifierModal";
+import TNLandGovHub from "@/components/TNLandGovHub";
+import GISSatelliteModal from "@/components/GISSatelliteModal";
 
 export default function PropertyCard({ property }) {
     const [isSaved, setIsSaved] = useState(false);
@@ -10,6 +12,7 @@ export default function PropertyCard({ property }) {
     const [showContact, setShowContact] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [showGISSatellite, setShowGISSatellite] = useState(false);
 
     const handleDelete = async () => {
         setDeleting(true);
@@ -50,56 +53,56 @@ export default function PropertyCard({ property }) {
     return (
       <>
         <ThreeDTilt className="h-full">
-          <div className="group bg-white/70 rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full relative">
-            <div className="relative h-52 w-full overflow-hidden bg-slate-100">
+          <div className="group bg-slate-900/90 rounded-2xl border border-slate-800/80 hover:border-cyan-500/50 overflow-hidden shadow-xl hover:shadow-cyan-500/10 transition-all duration-300 flex flex-col h-full relative backdrop-blur-md">
+            <div className="relative h-52 w-full overflow-hidden bg-slate-950">
               <img src={imageUrl} alt={property.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy"/>
               
-              <div className="absolute top-3 left-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-500/95 text-white text-[10px] font-bold shadow-sm backdrop-blur-sm uppercase tracking-wider">
+              <div className="absolute top-3 left-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-emerald-500/90 text-white text-[10px] font-black shadow-md backdrop-blur-md uppercase tracking-wider">
                 <ShieldCheck className="h-3.5 w-3.5"/>
-                <span>Vetted Title</span>
+                <span>{property.verificationStatus || "Vetted Title"}</span>
               </div>
 
               <button onClick={() => setIsSaved(!isSaved)} className={`absolute top-3 right-3 h-8.5 w-8.5 rounded-lg flex items-center justify-center border transition-all cursor-pointer ${isSaved
-                  ? "bg-rose-600 border-rose-650 text-white scale-105"
-                  : "bg-white/85 border-slate-200 text-slate-650 hover:text-rose-500 hover:bg-white"}`}>
+                  ? "bg-rose-600 border-rose-500 text-white scale-105"
+                  : "bg-slate-900/80 border-slate-700 text-slate-300 hover:text-rose-400 hover:bg-slate-900"}`}>
                 <Heart className={`h-4.5 w-4.5 ${isSaved ? "fill-current" : ""}`}/>
               </button>
             </div>
 
-            <div className="p-5 flex flex-col flex-grow">
+            <div className="p-5 flex flex-col flex-grow text-slate-100">
               <div className="flex items-start justify-between gap-2 mb-2">
-                <span className="text-xl font-black text-indigo-600">
+                <span className="text-xl font-black text-cyan-400">
                   ₹ {formattedPrice}
                 </span>
-                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-slate-500 bg-slate-100 border border-slate-200 px-2 py-0.5 rounded-md">
+                <span className="inline-flex items-center gap-1 text-[10px] font-extrabold text-cyan-300 bg-cyan-950/60 border border-cyan-800/50 px-2 py-0.5 rounded-md">
                   Parcel #{property.id}
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-slate-800 group-hover:text-indigo-600 transition-colors line-clamp-1 mb-2">
+              <h3 className="text-base font-bold text-white group-hover:text-cyan-300 transition-colors line-clamp-1 mb-2">
                 {property.title}
               </h3>
 
-              <div className="flex items-center gap-1 text-slate-500 text-xs font-semibold mb-3">
-                <MapPin className="h-3.5 w-3.5 text-indigo-500 shrink-0"/>
+              <div className="flex items-center gap-1 text-slate-400 text-xs font-semibold mb-3">
+                <MapPin className="h-3.5 w-3.5 text-cyan-400 shrink-0"/>
                 <span className="line-clamp-1">{property.location}</span>
               </div>
 
-              <p className="text-slate-600 font-medium text-xs leading-relaxed line-clamp-2 mb-5 flex-grow">
+              <p className="text-slate-300 font-normal text-xs leading-relaxed line-clamp-2 mb-5 flex-grow">
                 {property.description}
               </p>
 
-              <div className="grid grid-cols-4 gap-2 pt-4 border-t border-slate-200">
-                <button onClick={() => setShowDetails(true)} className="col-span-2 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-lg bg-indigo-50 hover:bg-indigo-600 text-indigo-600 hover:text-white text-xs font-bold transition-all cursor-pointer border-0">
+              <div className="grid grid-cols-4 gap-2 pt-4 border-t border-slate-800">
+                <button onClick={() => setShowDetails(true)} className="col-span-2 flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold transition-all cursor-pointer border-0 shadow-md shadow-cyan-600/20">
                   Details
                   <ArrowUpRight className="h-3.5 w-3.5"/>
                 </button>
 
-                <button onClick={() => setShowContact(true)} className="flex items-center justify-center rounded-lg bg-slate-55 hover:bg-emerald-50 text-slate-600 hover:text-emerald-600 border border-slate-200 hover:border-emerald-250 text-xs font-semibold py-2 px-2 transition-all cursor-pointer" title="Contact Owner">
+                <button onClick={() => setShowContact(true)} className="flex items-center justify-center rounded-xl bg-slate-800 hover:bg-emerald-600/30 text-slate-300 hover:text-emerald-300 border border-slate-700 hover:border-emerald-500/50 text-xs font-semibold py-2 px-2 transition-all cursor-pointer" title="Contact Owner">
                   <Phone className="h-3.5 w-3.5"/>
                 </button>
 
-                <button onClick={() => setShowDeleteConfirm(true)} className="flex items-center justify-center rounded-lg bg-slate-55 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 hover:border-rose-250 text-xs font-semibold py-2 px-2 transition-all cursor-pointer" title="Delete Listing">
+                <button onClick={() => setShowDeleteConfirm(true)} className="flex items-center justify-center rounded-xl bg-slate-800 hover:bg-rose-600/30 text-slate-300 hover:text-rose-300 border border-slate-700 hover:border-rose-500/50 text-xs font-semibold py-2 px-2 transition-all cursor-pointer" title="Delete Listing">
                   <Trash2 className="h-3.5 w-3.5"/>
                 </button>
               </div>
@@ -191,6 +194,7 @@ function DetailsModal({ property, imageUrl, formattedPrice, onClose, onOpenConta
     const [simulateYear, setSimulateYear] = useState(2026);
     const [soilUse, setSoilUse] = useState("residential");
     const [verifyingDoc, setVerifyingDoc] = useState(null);
+    const [showGISSatellite, setShowGISSatellite] = useState(false);
 
     const handleSubmitOffer = () => {
         setSubmittingOffer(true);
@@ -251,10 +255,16 @@ function DetailsModal({ property, imageUrl, formattedPrice, onClose, onOpenConta
                       </p>
                     </div>
 
-                    <div className="bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-slate-700/80 text-xs font-bold text-indigo-300 flex items-center gap-2 shadow-lg">
-                      <Layers className="h-4 w-4 text-indigo-400" />
+                    <button
+                      type="button"
+                      onClick={() => setShowGISSatellite(true)}
+                      className="bg-indigo-600/95 hover:bg-indigo-500 text-white backdrop-blur-md px-3.5 py-2 rounded-xl border border-indigo-400/40 text-xs font-black flex items-center gap-2 shadow-lg shadow-indigo-600/40 transition-all cursor-pointer hover:scale-105 active:scale-95"
+                      title="Click to view live Google Maps satellite overlay"
+                    >
+                      <Satellite className="h-4 w-4 text-cyan-300 animate-pulse" />
                       <span>GIS Satellite Overlay</span>
-                    </div>
+                      <ExternalLink className="h-3 w-3 opacity-80" />
+                    </button>
                   </div>
                 </div>
 
@@ -265,7 +275,8 @@ function DetailsModal({ property, imageUrl, formattedPrice, onClose, onOpenConta
                     { id: "geotech", label: "🧪 Soil Profile" },
                     { id: "3d", label: "🏢 3D Massing" },
                     { id: "proximity", label: "📈 Growth Corridor" },
-                    { id: "documents", label: "🛡️ Vetted Deeds" }
+                    { id: "documents", label: "🛡️ Vetted Deeds" },
+                    { id: "tn_gov", label: "🏛️ TN Land Registry" }
                   ].map(tab => (
                     <button
                       key={tab.id}
@@ -285,6 +296,35 @@ function DetailsModal({ property, imageUrl, formattedPrice, onClose, onOpenConta
                 {/* TAB 1: GIS Map Vectors */}
                 {activeTab === "gis" && (
                   <div className="space-y-4 animate-fade-in">
+                    
+                    {/* Live Satellite & Google Maps Quick Actions */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 p-3.5 bg-gradient-to-r from-indigo-950/60 via-slate-900 to-indigo-950/60 rounded-2xl border border-indigo-500/40 shadow-xl">
+                      <div className="flex items-center gap-2">
+                        <Satellite className="h-4 w-4 text-cyan-400 animate-pulse" />
+                        <span className="text-xs font-black text-white">Live GIS Google Maps Satellite Integration</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setShowGISSatellite(true)}
+                          className="px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-black transition-all shadow-md shadow-indigo-600/30 flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <Layers className="h-3.5 w-3.5 text-cyan-300" />
+                          <span>Launch Satellite HUD</span>
+                        </button>
+                        <a
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(property.location || property.title)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+                        >
+                          <Navigation className="h-3.5 w-3.5 text-blue-400" />
+                          <span>Google Maps</span>
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                    </div>
+
                     <div className="flex items-center justify-between">
                       <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 flex items-center gap-2">
                         <Compass className="h-4 w-4 text-indigo-400" /> Boundary Survey Coordinates
@@ -592,6 +632,13 @@ Verification Status: SUCCESSFUL & VETTED BY LANDLINKX
                   </div>
                 )}
 
+                {/* TAB 6: TN Land Registry */}
+                {activeTab === "tn_gov" && (
+                  <div className="animate-fade-in space-y-4 max-h-[500px] overflow-y-auto pr-1">
+                    <TNLandGovHub property={property} />
+                  </div>
+                )}
+
               </div>
 
               {/* Bottom Quick Stats */}
@@ -701,6 +748,13 @@ Verification Status: SUCCESSFUL & VETTED BY LANDLINKX
             property={property}
             docItem={verifyingDoc}
             onClose={() => setVerifyingDoc(null)}
+          />
+        )}
+
+        {showGISSatellite && (
+          <GISSatelliteModal
+            property={property}
+            onClose={() => setShowGISSatellite(false)}
           />
         )}
       </>

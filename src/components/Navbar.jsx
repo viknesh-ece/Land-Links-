@@ -2,14 +2,16 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-import { MapPin, LayoutDashboard, Landmark, LogIn, UserPlus, TrendingUp, LogOut, ChevronDown, MessageSquare, ShieldCheck, Home, Sparkles } from "lucide-react";
+import { MapPin, LayoutDashboard, Landmark, LogIn, UserPlus, TrendingUp, LogOut, ChevronDown, MessageSquare, ShieldCheck, Home, Sparkles, Globe, ShieldAlert } from "lucide-react";
 import { getLoggedInUser, logoutUser } from "@/lib/auth";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
     const pathname = usePathname();
     const router = useRouter();
     const [user, setUser] = useState(null);
     const [dropdownOpen, setDropdownOpen] = useState(false);
+    const { lang, toggleLanguage, t } = useLanguage();
 
     useEffect(() => {
         setUser(getLoggedInUser());
@@ -39,12 +41,14 @@ export default function Navbar() {
     };
 
     const navItems = [
-        { name: "Home", href: "/", icon: Home },
-        { name: "3D Spatial Studio", href: "/spatial-studio", icon: Sparkles, highlight: true },
-        { name: "Listings", href: "/listings", icon: Landmark },
-        { name: "AI Predictor", href: "/ai-price", icon: TrendingUp },
+        { name: t.navHome || "Home", href: "/", icon: Home },
+        { name: t.navSpatial || "3D Spatial Studio", href: "/spatial-studio", icon: Sparkles, highlight: true },
+        { name: t.navListings || "Land Marketplace", href: "/listings", icon: Landmark },
+        { name: t.navValuation || "AI Land Valuation", href: "/ai-price", icon: TrendingUp },
+        { name: "Demo Playground", href: "/admin/analytics", icon: Sparkles },
+        { name: "Admin Audit", href: "/admin/dashboard", icon: ShieldAlert },
         ...(user ? [
-            { name: "Inbox", href: "/inbox", icon: MessageSquare, badge: true },
+            { name: t.navInbox || "Inbox", href: "/inbox", icon: MessageSquare, badge: true },
             { name: "Dashboard", href: getDashboardLink(), icon: LayoutDashboard }
         ] : []),
     ];
@@ -59,7 +63,7 @@ export default function Navbar() {
               <MapPin className="h-5.5 w-5.5"/>
             </div>
             <span className="text-xl font-black text-white tracking-tight">
-              LandLink<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400 font-black">X</span>
+              {t.brandName || "LandLink"}<span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400 font-black">X</span>
             </span>
           </Link>
 
@@ -72,7 +76,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 relative ${
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-200 relative ${
                     isActive
                       ? "bg-gradient-to-r from-cyan-500 to-indigo-600 text-white shadow-lg shadow-cyan-500/25 scale-[1.02]"
                       : item.highlight
@@ -88,8 +92,19 @@ export default function Navbar() {
           })}
           </nav>
 
-          {/* CTA or User Profile Menu */}
+          {/* Language Switcher & User Profile Menu */}
           <div className="flex items-center gap-3 relative">
+            
+            {/* Tamil / English Toggle Button */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-300 hover:border-cyan-500 text-xs font-black transition-all cursor-pointer shadow-sm"
+              title="Toggle Tamil / English Language"
+            >
+              <Globe className="h-4 w-4 text-cyan-400" />
+              <span>{lang === "en" ? "தமிழ்" : "English"}</span>
+            </button>
+
             {user ? (
               <div className="relative">
                 <button
@@ -127,6 +142,15 @@ export default function Navbar() {
                       My Dashboard
                     </Link>
 
+                    <Link
+                      href="/admin/dashboard"
+                      onClick={() => setDropdownOpen(false)}
+                      className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-amber-400 hover:bg-slate-800 transition-colors"
+                    >
+                      <ShieldAlert className="h-4 w-4"/>
+                      Admin Moderation Queue
+                    </Link>
+
                     <button
                       onClick={handleLogout}
                       className="flex w-full items-center gap-2 px-4 py-2.5 text-xs font-bold text-rose-400 hover:bg-rose-500/10 transition-colors text-left cursor-pointer border-t border-slate-800"
@@ -141,11 +165,11 @@ export default function Navbar() {
               <>
                 <Link href="/login" className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-slate-300 hover:text-white hover:bg-slate-900 transition-colors">
                   <LogIn className="h-4 w-4"/>
-                  Sign In
+                  {t.navLogin || "Sign In"}
                 </Link>
                 <Link href="/signup" className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-extrabold bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white shadow-lg shadow-cyan-500/25 transition-all duration-200 border-0">
                   <UserPlus className="h-4 w-4"/>
-                  Register
+                  {t.navSignup || "Register"}
                 </Link>
               </>
             )}
@@ -155,3 +179,4 @@ export default function Navbar() {
       </header>
     );
 }
+
